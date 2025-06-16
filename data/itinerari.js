@@ -23,7 +23,7 @@ export const itinerari = [
     {
       id: 2,
       titolo: "Arte Antica",
-      descrizione: "Un viaggio attraverso le opere d'arte antica dei musei.",
+      descrizione: "Un viaggio attraverso le opere darte antica dei musei.",
       reperti: [
         {
           nome: "Statua di Venere",
