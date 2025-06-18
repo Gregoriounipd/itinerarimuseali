@@ -61,7 +61,7 @@ return (
         onClick={() => router.back()}
         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
       >
-        ← Torna all'Itinerario
+        ← Torna all&apos;Itinerario
       </button>
 
       {prossimoReperto ? (
@@ -72,7 +72,7 @@ return (
           Vai al prossimo reperto → {prossimoReperto.titolo}
         </button>
       ) : (
-        <p className="mt-4 text-sm text-gray-500">Hai raggiunto l'ultimo reperto.</p>
+        <p className="mt-4 text-sm text-gray-500">Hai raggiunto l&apos;ultimo reperto.</p>
       )}
     </div>
   </div>

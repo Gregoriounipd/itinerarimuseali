@@ -80,12 +80,12 @@ export default function Home() {
         >
           <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-xl relative">
             <h2 id="titolo-guida" tabIndex="-1" className="text-2xl font-sans mb-4">
-              Guida all'accessibilità
+              Guida all&apos;accessibilità
             </h2>
             <ul className="space-y-2">
               <li>✔️ Premi <strong>Tab</strong> per muoverti tra link e bottoni.</li>
               <li>✔️ Usa <strong>H</strong> per saltare ai titoli principali (con alcuni screen reader).</li>
-              <li>✔️ C’è un link nascosto all'inizio della pagina per saltare subito al contenuto.</li>
+              <li>✔️ C&apos;è un link nascosto all&apos;inizio della pagina per saltare subito al contenuto.</li>
               <li>✔️ Le immagini hanno testi alternativi.</li>
             </ul>
             <button
