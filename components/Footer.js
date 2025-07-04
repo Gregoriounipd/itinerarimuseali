@@ -1,7 +1,7 @@
 // components/Footer.js
 export default function Footer() {
     return (
-      <footer className="bg-gray-100 text-gray-600 text-sm mt-12 py-8 px-6">
+      <footer className="bg-gray-100 text-gray-600 text-sm mt-12 py-8 px-6 dark:bg-gray-900 dark:text-white text-sm mt-12 py-8 px-6">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <h4 className="font-semibold mb-2">Contatti</h4>

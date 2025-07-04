@@ -19,7 +19,7 @@ export default function HeroBanner({ scrollToId }) {
           transition={{ duration: 0.6 }}
           className="text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg"
         >
-          Esplora la cultura museale
+          Esplora i percorsi museali
         </motion.h1>
         <motion.button
           onClick={scrollToContent}

@@ -9,7 +9,7 @@ const FlyToAndOpenPopup = ({ lat, lng, markerRef }) => {
 
   useEffect(() => {
     if (lat && lng && markerRef?.current) {
-      map.flyTo([lat, lng], 16, { duration: 1.2 });
+      map.flyTo([lat - 0.0015, lng], 16, { duration: 1.2 });
       setTimeout(() => {
         markerRef.current.openPopup();
       }, 700);
@@ -55,35 +55,35 @@ const ItinerarioMap = ({ reperti, selectedReperto }) => {
 
         {reperti.map((reperto, i) => {
           const customIcon = new L.Icon({
-            iconUrl: `/images/marker${i + 1}.png`,
+            iconUrl: `/images/marker${reperto.numero_marker || i + 1}.png`,
             iconSize: [30, 30],
-            iconAnchor: [15, 30],
-            popupAnchor: [0, -30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -30],
           });
 
-          return (
-            <Marker
-              key={reperto.id}
-              position={[reperto.lat, reperto.lng]}
-              icon={customIcon}
-              ref={(ref) => {
-                if (ref) markerRefs.current[reperto.id] = ref;
-              }}
-            >
-              <Popup>
-                <div className="text-center">
-                  <h3 className="text-lg font-bold">{reperto.nome}</h3>
-                  <img src={reperto.immagine} alt={reperto.nome} className="mt-2 rounded-lg" />
-                  <a
-                    href={`/reperto/${reperto.id}`}
-                    className="mt-3 inline-block px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md"
-                  >
-                    Scopri di più!
-                  </a>
-                </div>
-              </Popup>
-            </Marker>
-          );
+        return (
+        <Marker
+          key={reperto.id}
+          position={[reperto.lat, reperto.lng]}
+          icon={customIcon}
+          ref={(ref) => {
+            if (ref) markerRefs.current[reperto.id] = ref;
+          }}
+        >
+          <Popup>
+            <div className="text-center">
+              <h3 className="text-lg font-bold">{reperto.nome}</h3>
+              <img src={reperto.immagine} alt={reperto.nome} className="mt-2 rounded-lg" />
+              <a
+                href={`/reperto/${reperto.id}`}
+                className="mt-3 inline-block px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md"
+              >
+                Scopri di più!
+              </a>
+            </div>
+          </Popup>
+        </Marker>
+        );
         })}
       </MapContainer>
     </div>

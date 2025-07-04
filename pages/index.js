@@ -30,6 +30,24 @@ export default function Home() {
     }
     fetchItinerari()
   }, [])
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsModalOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    // Quando si apre la modale, metti il focus sul titolo
+    if (isModalOpen && modalRef.current) {
+      const titolo = modalRef.current.querySelector('#titolo-guida')
+      if (titolo) titolo.focus()
+    }
+
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isModalOpen])
+
 
   // Chiudi modale con Esc
   useEffect(() => {
@@ -44,13 +62,13 @@ export default function Home() {
 
   return (
     <div>
-      <Head>
-        <title>Itinerari Virtuali - Musei Unipd</title>
-        <meta
-          name="description"
-          content="Esplora gli itinerari virtuali dei musei dell&apos;Università di Padova."
-        />
-      </Head>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="sr-only focus:not-sr-only"
+        aria-live="assertive"
+      >
+        Questo sito è accessibile. Premi invio per aprire la guida all&apos;accessibilità.
+      </button>
 
       <a
         href="#contenuto"
@@ -58,6 +76,14 @@ export default function Home() {
       >
         Salta al contenuto principale
       </a>
+
+      <Head>
+        <title>Itinerari Virtuali - Musei dell'Università</title>
+        <meta
+          name="description"
+          content="Esplora gli itinerari virtuali dei musei dell&apos;Università di Padova."
+        />
+      </Head>
 
       <button
         onClick={() => setIsModalOpen(true)}
@@ -83,10 +109,10 @@ export default function Home() {
               Guida all&apos;accessibilità
             </h2>
             <ul className="space-y-2">
-              <li>✔️ Premi <strong>Tab</strong> per muoverti tra link e bottoni.</li>
-              <li>✔️ Usa <strong>H</strong> per saltare ai titoli principali (con alcuni screen reader).</li>
-              <li>✔️ C&apos;è un link nascosto all&apos;inizio della pagina per saltare subito al contenuto.</li>
-              <li>✔️ Le immagini hanno testi alternativi.</li>
+              <li> Premi <strong>Tab</strong> per muoverti tra link e bottoni.</li>
+              <li> Usa <strong>H</strong> per saltare ai titoli principali (con alcuni screen reader).</li>
+              <li> C&apos;è un link nascosto all&apos;inizio della pagina per saltare subito al contenuto.</li>
+              <li> Le immagini hanno testi alternativi.</li>
             </ul>
             <button
               onClick={() => setIsModalOpen(false)}
@@ -101,8 +127,9 @@ export default function Home() {
       <HeroBanner scrollToId="contenuto" />
 
       <main id="contenuto" role="main" className="p-8">
+
         <h1 className="text-4xl md:text-6xl font-extrabold text-center text-gray-900 tracking-tight">
-          <span className="bg-gradient-to-r from-red-900 to-red-600 text-transparent bg-clip-text">
+          <span className="bg-gradient-to-r from-red-900 to-red-600 text-transparent bg-clip-text dark:from-green-700 dark:to-green-400 text-transparent">
             Itinerari Musei Unipd
           </span>
         </h1>
@@ -120,11 +147,11 @@ export default function Home() {
               >
                 <Link href={`/itinerario/${itinerario.id}`} legacyBehavior>
                   <a className="block">
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer">
+                    <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer">
                       <img src={itinerario.immagine} alt={itinerario.titolo} className="w-full h-40 object-cover" />
                       <div className="p-4">
-                        <h2 className="text-xl font-semibold text-gray-900">{itinerario.titolo}</h2>
-                        <p className="text-gray-600">{itinerario.descrizione}</p>
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-50">{itinerario.titolo}</h2>
+                        <p className="text-gray-600 dark:text-white">{itinerario.descrizione}</p>
                       </div>
                     </div>
                   </a>
