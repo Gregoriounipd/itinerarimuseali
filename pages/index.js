@@ -78,7 +78,7 @@ export default function Home() {
       </a>
 
       <Head>
-        <title>Itinerari Virtuali - Musei dell'Università</title>
+        <title>Itinerari Virtuali - Musei dell&apos;Università</title>
         <meta
           name="description"
           content="Esplora gli itinerari virtuali dei musei dell&apos;Università di Padova."

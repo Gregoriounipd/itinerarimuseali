@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { socialLinks } from '@/lib/socialLinks';
-import Accessibility from '@/pages/Accessibility';
+import Accessibility from '@/pages/accessibility';
 
 export default function Header() {
   return (
