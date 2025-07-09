@@ -48,7 +48,6 @@ export default function Accessibility() {
       <Head>
         <title>Accessibility Act - Itinerari Virtuali</title>
       </Head>
-
       <main className="max-w-3xl mx-auto p-6 text-gray-900 dark:text-gray-100">
         <h1 className="text-4xl font-bold mb-4">Accessibilità del sito</h1>
         <div className="mb-8">
