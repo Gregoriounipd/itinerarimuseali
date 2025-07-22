@@ -82,7 +82,7 @@ export default function Home() {
         }}
         onClick={() => setIsModalOpen(true)}
       >
-        Questo sito è accessibile. Premi Invio per aprire la guida all'accessibilità.
+        Questo sito è accessibile. Premi Invio per aprire la guida all&apos;accessibilità.
       
       
       </div><Head>
