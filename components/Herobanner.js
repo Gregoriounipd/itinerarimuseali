@@ -1,18 +1,45 @@
-import { motion } from 'framer-motion'
+'use client';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function HeroBanner({ scrollToId }) {
   const scrollToContent = () => {
-    document.getElementById(scrollToId)?.scrollIntoView({ behavior: 'smooth' })
-  }
+    document.getElementById(scrollToId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const images = [
+    '/images/herobanner/astropole.png',
+    '/images/herobanner/minemnu.jpg',
+    '/images/herobanner/tartas.jpg',
+    '/images/herobanner/geospecchio.png'
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Cambia immagine ogni 5 secondi
+
+    return () => clearInterval(timer);
+  }, [images.length]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center text-white bg-black">
-      <img
-        src="images/imaginepcoseria.jpg" 
-        alt="Collage Musei"
-        className="absolute inset-0 w-full h-full object-cover opacity-70"
-      />
-      <div className="relative z-10 text-center">
+    <section className="relative h-screen flex items-center justify-center text-white bg-black overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={images[index]}
+          src={images[index]}
+          alt="Immagine Hero"
+          className="absolute inset-0 w-full h-full object-cover opacity-70"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+        />
+      </AnimatePresence>
+
+      <div className="relative z-10 text-center px-4">
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,6 +58,5 @@ export default function HeroBanner({ scrollToId }) {
         </motion.button>
       </div>
     </section>
-  )
+  );
 }
-

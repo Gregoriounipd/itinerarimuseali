@@ -16,10 +16,3 @@ export default function App({ Component, pageProps }) {
   );
 }
 
-{/* Per utenti screen reader, compare appena si entra nella pagina */}
-<div
-  className="sr-only"
-  aria-live="assertive"
->
-  Questo sito è accessibile. Premi il tasto H per saltare ai titoli principali oppure Tab per iniziare la navigazione.
-</div>

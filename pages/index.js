@@ -18,6 +18,13 @@ export default function Home() {
     }
   }
 
+  //Far leggere per primo il messaggio screenreader
+  useEffect(() => {
+    const accessBtn = document.getElementById("access-message");
+    if (accessBtn) accessBtn.focus();
+  }, []);
+
+
   // Carica itinerari da Supabase
   useEffect(() => {
     const fetchItinerari = async () => {
@@ -62,68 +69,68 @@ export default function Home() {
 
   return (
     <div>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="sr-only focus:not-sr-only"
-        aria-live="assertive"
-      >
-        Questo sito è accessibile. Premi invio per aprire la guida all&apos;accessibilità.
-      </button>
-
-      <a
-        href="#contenuto"
+      <div
+        id="access-message"
         className="sr-only focus:not-sr-only absolute left-2 top-2 bg-white text-black p-2 rounded shadow z-50"
+        role="button"
+        tabIndex={0}
+        aria-live="assertive"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setIsModalOpen(true)
+          }
+        }}
+        onClick={() => setIsModalOpen(true)}
       >
-        Salta al contenuto principale
-      </a>
-
-      <Head>
+        Questo sito è accessibile. Premi Invio per aprire la guida all'accessibilità.
+      
+      
+      </div><Head>
         <title>Itinerari Virtuali - Musei dell&apos;Università</title>
         <meta
           name="description"
-          content="Esplora gli itinerari virtuali dei musei dell&apos;Università di Padova."
-        />
-      </Head>
-
-      <button
+          content="Esplora gli itinerari virtuali dei musei dell&apos;Università di Padova." />
+      </Head><button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-4 right-4 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="fixed bottom-4 right-4 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:text-gray-100 dark:bg-blue-600"
         aria-haspopup="dialog"
         aria-controls="guida-accessibilita"
       >
         Guida Accessibilità
       </button>
 
-      {/* Modale accessibilità */}
-      {isModalOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="titolo-guida"
-          id="guida-accessibilita"
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          ref={modalRef}
-        >
-          <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-xl relative">
-            <h2 id="titolo-guida" tabIndex="-1" className="text-2xl font-sans mb-4">
-              Guida all&apos;accessibilità
-            </h2>
-            <ul className="space-y-2">
-              <li> Premi <strong>Tab</strong> per muoverti tra link e bottoni.</li>
-              <li> Usa <strong>H</strong> per saltare ai titoli principali (con alcuni screen reader).</li>
-              <li> C&apos;è un link nascosto all&apos;inizio della pagina per saltare subito al contenuto.</li>
-              <li> Le immagini hanno testi alternativi.</li>
-            </ul>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              <span aria-hidden="true">&times;</span>
-              <span className="sr-only">Chiudi modale</span>
-            </button>
-          </div>
+      {/* Modale accessibilità */ }
+  {
+    isModalOpen && (
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titolo-guida"
+        id="guida-accessibilita"
+        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        ref={modalRef}
+      >
+        <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-xl relative dark:bg-blue-950 dark:text-gray-100">
+          <h2 id="titolo-guida" tabIndex="-1" className="text-2xl font-sans mb-4">
+            Guida all&apos;accessibilità
+          </h2>
+          <ul className="space-y-2">
+            <li> Premi <strong>Tab</strong> per muoverti tra link e bottoni.</li>
+            <li> Usa <strong>H</strong> per saltare ai titoli principali (con alcuni screen reader).</li>
+            <li> C&apos;è un link nascosto all&apos;inizio della pagina per saltare subito al contenuto.</li>
+            <li> Le immagini hanno testi alternativi.</li>
+          </ul>
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="absolute top-2 right-2 text-gray-600 hover:text-black focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            <span aria-hidden="true">&times;</span>
+            <span className="sr-only">Chiudi modale</span>
+          </button>
         </div>
-      )}
+      </div>
+    )
+  }
       <HeroBanner scrollToId="contenuto" />
 
       <main id="contenuto" role="main" className="p-8">

@@ -1,4 +1,4 @@
-// ✅ VERSIONE RESPONSIVE DELLA NAVBAR
+//navbar
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,17 +6,26 @@ import { useState } from 'react';
 import { socialLinks } from '@/lib/socialLinks';
 import { Menu, X } from 'lucide-react';
 
+{/* Per utenti screen reader, compare appena si entra nella pagina */}
+<div
+  className="sr-only"
+  aria-live="assertive"
+  tabIndex={-1}
+>
+  Questo sito è accessibile. Premi il tasto H per saltare ai titoli principali oppure Tab per iniziare la navigazione.
+</div>
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="w-full bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
       <div className="flex justify-between items-center px-6 py-4">
-        {/* Logo */}
+        {/* Logo+ intro acc */}
         <Link href="/" className="flex-shrink-0">
           <Image
             src="/images/logo-unipd.png"
-            alt="Logo UniPD"
+            alt="Questo sito è accessibile premi Invio per accedere al guida."
             width={160}
             height={160}
             className="cursor-pointer dark:invert"

@@ -1,81 +1,78 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabaseClient";
+import { useEffect, useState } from 'react';
+import NavigazioneReperti from '@/components/NavigazioneReperti';
+import { createClient } from '@supabase/supabase-js';
 
-export default function DettaglioReperto() {
-  const router = useRouter();
-  const { id } = router.query;
-  const [reperto, setReperto] = useState(null);
-  const [repertiStessoItinerario, setRepertiStessoItinerario] = useState([]);
-  const [prossimoReperto, setProssimoReperto] = useState(null);
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
+export async function getServerSideProps({ params }) {
+  const { id } = params;
 
-  useEffect(() => {
+  // ✅ 1. Recupera il reperto base da 'reperti' tramite id (uuid)
+  const { data, error } = await supabase
+    .from('reperti')
+    .select('*')
+    .eq('id', id)
+    .single();
 
-    async function fetchReperto() {
-      if (!id) return;
-
-      const { data, error } = await supabase.from("reperti_specifici").select("*").eq("id", parseInt(id)).single();
-      if (error) {
-        console.error("Errore nel caricamento:", error);
-        return;
-      }
-
-      setReperto(data);
-      const { data: altriReperti, error: errorReperti } = await supabase
-        .from("reperti_specifici")
-        .select("id, titolo, itinerario_id")
-        .eq("itinerario_id", data.itinerario_id)
-        .order("id", { ascending: true }); // se hai un campo tipo "ordine", metti order("ordine")
-
-      if (errorReperti) {
-        console.error("Errore nel caricamento altri reperti:", errorReperti);
-        return;
-      }
-
-      const indexCorrente = altriReperti.findIndex(r => r.id === data.id);
-      const prossimoRepertoTemp = altriReperti[indexCorrente + 1];
-
-      if (prossimoRepertoTemp) { setProssimoReperto(prossimoRepertoTemp);
-    } else {
-      setProssimoReperto(null);
-    }
+  if (error || !data) {
+    return { notFound: true };
   }
 
+  // ✅ 2. Recupera approfondimento da 'reperti_specifici'
+  // Usando un campo comune (es. numero_marker === ordine) se ce l’hai
+  const { data: approfondimento, error: errorApprofondimento } = await supabase
+    .from('reperti_specifici')
+    .select('*')
+    .eq('ordine', data.numero_marker) // ← o un altro campo che combacia
+    .single();
 
-    fetchReperto();
-}, [id]);
+  // ✅ 3. Recupera tutti i reperti per la navigazione
+  const { data: dataReperti, error: errorReperti } = await supabase
+    .from('reperti')
+    .select('*');
 
-if (!reperto) return <p>Caricamento...</p>;
+  if (errorReperti) {
+    return { notFound: true };
+  }
 
-return (
-  <div className="max-w-2xl mx-auto p-6">
-    <h1 className="text-2xl font-bold">{reperto.titolo}</h1>
-    <img src={reperto.immagine} alt={reperto.titolo} className="w-full h-auto rounded-lg mt-4" />
-
-    <p className="mt-4 text-gray-700 italic">{reperto.testo_breve}</p>
-    <p className="mt-2 text-gray-900">{reperto.testo_lungo}</p>
-
-    <div className="mt-6 flex justify-between">
-      <button
-        onClick={() => router.back()}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-      >
-        ← Torna all&apos;Itinerario
-      </button>
-
-      {prossimoReperto ? (
-        <button
-          onClick={() => router.push(`/reperto/${prossimoReperto.id}`)}
-          className="mt-6 bg-green-600 text-white px-4 py-2 rounded-md ml-4 hover:bg-green-700 transition-all"
-        >
-          Vai al prossimo reperto → {prossimoReperto.titolo}
-        </button>
-      ) : (
-        <p className="mt-4 text-sm text-gray-500">Hai raggiunto l&apos;ultimo reperto.</p>
-      )}
-    </div>
-  </div>
-);
+  return {
+    props: {
+      data,
+      approfondimento: approfondimento || null,
+      dataReperti,
+    },
+  };
 }
 
+
+
+export default function RepertoPage({ data, approfondimento, dataReperti }) {
+  return (
+    <div className="px-4 py-8 max-w-4xl mx-auto space-y-8">
+      {/* Titolo */}
+      <h1 className="text-3xl font-bold text-center">{data.nome}</h1>
+
+      {/* Immagine */}
+      <div className="flex justify-center">
+        <img
+          src={approfondimento?.immagine || data.immagine}
+          alt={data.descrizione_immagine || 'Immagine reperto'}
+          className="max-h-[400px] w-auto rounded shadow-lg object-contain"
+        />
+      </div>
+
+      {/* Testo lungo o descrizione */}
+      <div className="prose prose-lg max-w-none">
+        <p>{approfondimento?.testo_lungo || data.descrizione}</p>
+      </div>
+
+      {/* Navigazione */}
+      <div className="pt-8 border-t">
+        <NavigazioneReperti data={data} dataReperti={dataReperti} />
+      </div>
+    </div>
+  );
+}
