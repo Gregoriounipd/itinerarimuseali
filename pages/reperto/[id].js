@@ -58,7 +58,7 @@ export default function RepertoPage({ data, approfondimento, dataReperti }) {
         {approfondimento?.audioguida_url && (
           <audio controls preload="none" className="w-full sm:w-auto">
             <source src={approfondimento.audioguida.url} type="audio/mpeg " />
-            Il tuo browser non supporta l'elemento audio.
+            Il tuo browser non supporta l&apos;elemento audio.
           </audio>
         )}
         {approfondimento?.video_lis_url && (
