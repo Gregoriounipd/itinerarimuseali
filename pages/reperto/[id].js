@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import NavigazioneReperti from '@/components/NavigazioneReperti';
 import { createClient } from '@supabase/supabase-js';
 
@@ -55,6 +54,41 @@ export default function RepertoPage({ data, approfondimento, dataReperti }) {
       {/* Titolo */}
       <h1 className="text-3xl font-bold text-center">{data.nome}</h1>
 
+      <div className="flex flex-col sm:flex-row gap-4 mt-6">
+        {approfondimento?.audioguida_url && (
+          <audio controls preload="none" className="w-full sm:w-auto">
+            <source src={approfondimento.audioguida.url} type="audio/mpeg " />
+            Il tuo browser non supporta l'elemento audio.
+          </audio>
+        )}
+        {approfondimento?.video_lis_url && (
+          <a
+            href={approfondimento.video_lis_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block">
+              
+            <button className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+              Guarda video in LIS
+            </button>
+          </a>
+        )}
+
+
+        {approfondimento?.approfondimento_url && (
+          <a
+            href={approfondimento.approfondimento_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block">
+            <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+              CAA
+            </button>
+          </a>
+        )}
+      </div>
+
+
       {/* Immagine */}
       <div className="flex justify-center">
         <img
@@ -68,6 +102,8 @@ export default function RepertoPage({ data, approfondimento, dataReperti }) {
       <div className="prose prose-lg max-w-none">
         <p>{approfondimento?.testo_lungo || data.descrizione}</p>
       </div>
+
+
 
       {/* Navigazione */}
       <div className="pt-8 border-t">
