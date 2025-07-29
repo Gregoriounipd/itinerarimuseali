@@ -5,6 +5,8 @@ import { useEffect, useState, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { supabase } from '../../lib/supabase'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+
 
 const ItinerarioMap = dynamic(() => import('../../components/ItinerarioMap'), {
   ssr: false,
@@ -18,7 +20,7 @@ export default function Itinerario() {
   const [selectedRepertoId, setSelectedRepertoId] = useState(null)
   const repertiRef = useRef(null)
   const isMostraModelli = id === 'ed9b295c-13d1-4ab5-a620-2294c8d3fac9';
-  
+
 
   const bgCard = isMostraModelli ? 'bg-[#202044]' : 'bg-white dark:bg-gray-950';
   const textColor = isMostraModelli ? 'text-white' : 'text-gray-800 dark:text-gray-100';
@@ -136,49 +138,46 @@ export default function Itinerario() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {reperti.map((reperto, index) => (
-
-            <motion.div
-              key={reperto.id}
-              id={`card-${reperto.id}`}
-              role="listitem"
-              tabIndex="0"
-              aria-label={`Reperto: ${reperto.nome}`}
-              onClick={() => setSelectedRepertoId(reperto.id)}
-              className={`relative border rounded-2xl shadow-md hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 ease-in-out overflow-hidden cursor-pointer ${selectedRepertoId === reperto.id ? `ring-4 ${ringColor}` : ''} ${bgCard}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              {selectedRepertoId === reperto.id && (
-                <span className={`absolute top-2 right-2 ${selectedBadgeColor} text-white text-xs px-2 py-1 rounded-full z-10 shadow`}>
-                  Selezionato
-                </span>
-              )}
-
-              <img
-                src={reperto.immagine}
-                alt={reperto.descrizione_immagine || `Immagine del reperto: ${reperto.nome}`}
-                className="h-48 w-full object-cover rounded-t-2xl"
-              />
-
-              <div className={`p-4 ${textColor}`}>
-                <h3 className="font-bold text-lg">{reperto.nome}</h3>
-                <p className="text-sm">{reperto.descrizione}</p>
-              </div>
-            </motion.div>
+            <Link href={`/reperto/${reperto.slug}`} passHref key={reperto.id}>
+              <motion.a
+                id={`card-${reperto.id}`}
+                role="link"
+                tabIndex="0"
+                aria-label={`Vai alla pagina del reperto: ${reperto.nome}`}
+                className={`relative border rounded-2xl shadow-md hover:shadow-2xl transform hover:scale-[1.02] transition-all duration-300 ease-in-out overflow-hidden cursor-pointer block focus:outline-none focus:ring-4 ${selectedRepertoId === reperto.id ? `ring-4 ${ringColor}` : ''} ${bgCard}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                {selectedRepertoId === reperto.id && (
+                  <span className={`absolute top-2 right-2 ${selectedBadgeColor} text-white text-xs px-2 py-1 rounded-full z-10 shadow`}>
+                    Selezionato
+                  </span>
+                )}
+                <img
+                  src={reperto.immagine}
+                  alt={reperto.descrizione_immagine || `Immagine del reperto: ${reperto.nome}`}
+                  className="h-48 w-full object-cover rounded-t-2xl"
+                />
+                <div className={`p-4 ${textColor}`}>
+                  <h3 className="font-bold text-lg">{reperto.nome}</h3>
+                  <p className="text-sm">{reperto.descrizione}</p>
+                </div>
+              </motion.a>
+            </Link>
           ))}
-        </div>
-
-        {/* PULSANTE RITORNO */}
-        <button
-          onClick={() => router.back()}
-          className="mt-10 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-        >
-          Torna agli Itinerari
-        </button>
-        <Footer isMostraModelli={isMostraModelli} /> {/* 👈 footer custom solo qui */}
       </div>
+
+      {/* PULSANTE RITORNO */}
+      <button
+        onClick={() => router.back()}
+        className="mt-10 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+      >
+        Torna agli Itinerari
+      </button>
+      <Footer isMostraModelli={isMostraModelli} /> {/* 👈 footer custom solo qui */}
+    </div>
     </div >
 
   )

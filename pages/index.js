@@ -90,6 +90,7 @@ export default function Home() {
         <meta
           name="description"
           content="Esplora gli itinerari virtuali dei musei dell&apos;Università di Padova." />
+          <meta name="google-site-verification" content="U21Rf3YmByvViL8vH972RwllCumoKq-30GfMY5Cfc9Y" />
       </Head><button
         onClick={() => setIsModalOpen(true)}
         className="fixed bottom-4 right-4 z-50 bg-blue-600 text-white px-4 py-2 rounded shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 dark:text-gray-100 dark:bg-blue-600"
