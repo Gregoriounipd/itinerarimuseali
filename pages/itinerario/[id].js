@@ -12,13 +12,13 @@ const ItinerarioMap = dynamic(() => import('../../components/ItinerarioMap'), {
 
 export default function Itinerario() {
   const router = useRouter()
-  const { slug } = router.query
+  const { id } = router.query
   const [itinerario, setItinerario] = useState(null)
   const [reperti, setReperti] = useState([])
   const [selectedRepertoId, setSelectedRepertoId] = useState(null)
   const repertiRef = useRef(null)
   const isMostraModelli = id === 'ed9b295c-13d1-4ab5-a620-2294c8d3fac9';
-  const id = slug.split('-').at(-1)
+  
 
   const bgCard = isMostraModelli ? 'bg-[#202044]' : 'bg-white dark:bg-gray-950';
   const textColor = isMostraModelli ? 'text-white' : 'text-gray-800 dark:text-gray-100';
@@ -34,7 +34,7 @@ export default function Itinerario() {
       const { data: itinerarioData, error: itinerarioError } = await supabase
         .from('itinerari')
         .select('*')
-        .eq('slug', id)
+        .eq('id', id)
         .single()
 
       if (itinerarioError) console.error("Errore nell'itinerario:", itinerarioError)

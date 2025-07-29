@@ -15,7 +15,7 @@ export default function NavigazioneReperti({ data, dataReperti }) {
   return (
     <div className="mt-10 flex justify-between items-center gap-4">
       {precedente ? (
-        <Link href={`/reperto/${precedente.id}`}>
+        <Link href={`/reperto/${precedente.slug}`}>
           <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
             ← {precedente.testo_breve}
           </button>
@@ -23,9 +23,9 @@ export default function NavigazioneReperti({ data, dataReperti }) {
       ) : <div />}
 
       {successivo ? (
-        <Link href={`/reperto/${successivo.id}`}>
+        <Link href={`/reperto/${successivo.slug}`}>
           <button className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">
-            {successivo.titolo} →
+            {successivo.testo_breve} →
           </button>
         </Link>
       ) : <div />}

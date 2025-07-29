@@ -63,11 +63,11 @@ const ItinerarioMap = ({ reperti, selectedReperto }) => {
 
         return (
         <Marker
-          key={reperto.id}
+          key={reperto.slug}
           position={[reperto.lat, reperto.lng]}
           icon={customIcon}
           ref={(ref) => {
-            if (ref) markerRefs.current[reperto.id] = ref;
+            if (ref) markerRefs.current[reperto.slug] = ref;
           }}
         >
           <Popup>
@@ -75,7 +75,7 @@ const ItinerarioMap = ({ reperti, selectedReperto }) => {
               <h3 className="text-lg font-bold">{reperto.nome}</h3>
               <img src={reperto.immagine} alt={reperto.nome} className="mt-2 rounded-lg" />
               <a
-                href={`/reperto/${reperto.id}`}
+                href={`/reperto/${reperto.slug}`}
                 className="mt-3 inline-block px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md"
               >
                 Scopri di più!
