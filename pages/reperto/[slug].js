@@ -1,11 +1,13 @@
 import NavigazioneReperti from '@/components/NavigazioneReperti';
 import { createClient } from '@supabase/supabase-js';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
+
 
 // ✅ Server-side data fetching
 export async function getServerSideProps({ params }) {
@@ -50,6 +52,8 @@ export async function getServerSideProps({ params }) {
 // ✅ Componente principale della pagina
 export default function RepertoPage({ approfondimento, data, dataReperti }) {
   const [videoId, setVideoId] = useState(null);
+  const videoRef = useRef(null);
+
 
   useEffect(() => {
     if (approfondimento?.video_lis_url) {
@@ -58,6 +62,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
       setVideoId(id);
     }
   }, [approfondimento]);
+  
 
   return (
     <div className="px-4 py-8 max-w-4xl mx-auto">
@@ -81,9 +86,18 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
 
         {/* Video LIS */}
         {approfondimento?.video_lis_url && (
-          <a href={approfondimento.video_lis_url} target="_blank" rel="noopener noreferrer">
-            <img src="/images/logo_lis.png" alt="Guarda video in LIS" className="h-12 w-auto hover:opacity-80 cursor-pointer" />
-          </a>
+          <button
+            onClick={() => {
+              videoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }}
+            aria-label="Vai al video in LIS"
+          >
+            <img
+              src="/images/logo_lis.png"
+              alt="Vai al video in LIS"
+              className="h-12 w-auto hover:opacity-80 cursor-pointer"
+            />
+          </button>
         )}
 
         {/* CAA */}
@@ -99,20 +113,23 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
       </div>
 
       {approfondimento?.video_embed && (
-        <figure className="my-6">
-          <iframe
-            className="w-[350px] h-[230px] aspect-video rounded-xl"
-            src={`https://www.youtube.com/embed/${new URLSearchParams(new URL(approfondimento.video_embed).search).get('v')}`}
-            title="Video in Lingua dei segni italiana che descrive il reperto"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-          <figcaption className="sr-only">
-            Video in lingua dei segni italiana
-          </figcaption>
-        </figure>
+        <div ref={videoRef}>
+          <figure className="my-6">
+            <iframe
+              className="w-[350px] h-[230px] aspect-video rounded-xl"
+              src={`https://www.youtube.com/embed/${new URLSearchParams(new URL(approfondimento.video_embed).search).get('v')}`}
+              title="Video in Lingua dei segni italiana che descrive il reperto"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+            <figcaption className="sr-only">
+              Video in lingua dei segni italiana
+            </figcaption>
+          </figure>
+        </div>
       )}
+
 
       <div className="pt-8 border-t">
         <NavigazioneReperti data={data} dataReperti={dataReperti} />

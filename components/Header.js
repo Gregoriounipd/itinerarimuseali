@@ -19,7 +19,11 @@ export default function Header({ itinerarioId }) {
   const isModelli = itinerarioId === 'ed9b295c-13d1-4ab5-a620-2294c8d3fac9';
 
   return (
-    <header className={`w-full sticky top-0 z-50 shadow-md ${isModelli ? 'bg-[url("/fondalecalendario.jpg")] bg-cover bg-center text-white' : 'bg-white dark:bg-gray-900'} `}>
+    <header className={`w-full sticky top-0 z-50 shadow-md min-h-[100px] ${
+  isModelli
+    ? 'bg-[url("/fondalecalendario.jpg")] bg-cover bg-center text-white'
+    : 'bg-white dark:bg-gray-900'
+}`}>
       <div className="flex justify-between items-center px-6 py-4">
 
         <div className="flex items-center gap-4">
