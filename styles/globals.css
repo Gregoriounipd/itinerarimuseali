@@ -1,40 +1,82 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap');
 
-/* Applica il font Playfair Display al titolo */
+/* Titoli eleganti */
 h1 {
   font-family: 'Playfair Display', serif;
-  font-weight: 700; /* Usa lo stile Bold */
-  font-size: 4rem; /* Modifica la dimensione del font */
+  font-weight: 700;
+  font-size: 4rem;
   text-align: center;
   margin-bottom: 2rem;
 }
 
+/* Colori base Apple-style */
 :root {
-  --background: #fafafa;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #fafafa;
-  }
+  --background: #f8f9fa;
+  --foreground: #111827;
+  --accent: #0a84ff;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.06);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Leaflet popup - stile Apple elegante */
+.leaflet-popup-content-wrapper {
+  background-color: var(--card-bg) !important;
+  color: var(--foreground) !important;
+  border-radius: 16px !important;
+  padding: 16px !important;
+  box-shadow: 0 10px 30px var(--card-shadow) !important;
+}
+
+.leaflet-popup-content {
+  text-align: center !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+}
+
+.leaflet-popup-tip {
+  background: var(--card-bg) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f0f0f;
+    --foreground: #f9f9f9;
+    --accent: #0a84ff;
+    --card-bg: #1f1f1f;
+    --card-shadow: rgba(0, 0, 0, 0.5);
+  }
+
+  .leaflet-popup-content-wrapper {
+    background-color: var(--card-bg) !important;
+    color: var(--foreground) !important;
+  }
+
+  .leaflet-popup-tip {
+    background: var(--card-bg) !important;
+  }
+}
+
+/* Accessibilità screen reader */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Marker animati */
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -47,28 +89,41 @@ body {
 .animated-marker {
   animation: bounce 2s infinite;
 }
-.leaflet-popup-content {
-  text-align: center !important;
-  font-family: "Inter", sans-serif;
+
+/* Pulsanti stile Apple */
+.button {
+  background-color: var(--accent);
+  color: white;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: background-color 0.2s;
 }
 
-.leaflet-popup-content-wrapper {
-  border-radius: 12px !important;
-  padding: 10px !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+.button:hover {
+  background-color: #0066cc;
 }
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+
+
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+    linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+  background-size: 20px 20px;
 }
-html, body {
-  font-family: 'Poppins', sans-serif;
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, #374151 1px, transparent 1px),
+      linear-gradient(to bottom, #374151 1px, transparent 1px);
+  }
 }
