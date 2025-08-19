@@ -196,7 +196,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                  <p>Link di salto rapido disponibili all'inizio di ogni pagina</p>
+                  <p>Link di salto rapido disponibili all&apos;inizio di ogni pagina</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
