@@ -279,7 +279,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
               />
             </div>
             <p className="mt-4 text-xs sm:text-sm text-gray-500 dark:text-gray-400 italic">
-              Questo video fornisce una descrizione del reperto in Lingua dei Segni Italiana per garantire l'accessibilità a tutti i visitatori.
+              Questo video fornisce una descrizione del reperto in Lingua dei Segni Italiana per garantire l&apos;accessibilità a tutti i visitatori.
             </p>
           </div>
         )}
