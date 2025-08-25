@@ -204,7 +204,7 @@ export default function Home() {
       )}
 
       <Head>
-        <title>Itinerari Virtuali - Musei dell'Università di Padova</title>
+        <title>Itinerari Virtuali - Musei dell&apos;Università di Padova</title>
         <meta
           name="description"
           content="Scopri gli itinerari virtuali completamente accessibili dei musei dell'Università di Padova. Esplora collezioni storiche, reperti scientifici e patrimonio culturale."
@@ -261,7 +261,7 @@ export default function Home() {
                     <Accessibility className="w-6 h-6 text-blue-700 dark:text-blue-300" />
                   </div>
                   <h2 id="titolo-guida" tabIndex={-1} className="text-2xl font-bold text-gray-900 dark:text-white">
-                    Guida Completa all'Accessibilità
+                    Guida Completa all&apos;Accessibilità
                   </h2>
                 </div>
 
@@ -277,7 +277,7 @@ export default function Home() {
                       </li>
                       <li>
                         <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm font-mono">Shift + Tab</kbd> 
-                        - Naviga all'indietro
+                        - Naviga all&apos;indietro
                       </li>
                       <li>
                         <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm font-mono">Invio</kbd> o 
@@ -313,7 +313,7 @@ export default function Home() {
                       Standard di Conformità
                     </h3>
                     <ul className="space-y-2" role="list">
-                      <li>✅ WCAG 2.1 AA - Linee guida per l'accessibilità dei contenuti web</li>
+                      <li>✅ WCAG 2.1 AA - Linee guida per l&apos;accessibilità dei contenuti web</li>
                       <li>✅ Contrasto colori minimo 4.5:1 per testo normale</li>
                       <li>✅ Contrasto colori minimo 3:1 per testo grande e elementi UI</li>
                       <li>✅ Navigazione completamente da tastiera</li>
@@ -535,7 +535,7 @@ export default function Home() {
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400">
                       I nostri itinerari virtuali sono in fase di sviluppo.
-                      Tornate presto per scoprire le collezioni museali dell'Università di Padova.
+                      Tornate presto per scoprire le collezioni museali dell&apos;Università di Padova.
                     </p>
                   </div>
                 </motion.div>
