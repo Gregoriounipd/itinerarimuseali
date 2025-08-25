@@ -207,7 +207,7 @@ export default function Home() {
         <title>Itinerari Virtuali - Musei dell&apos;Università di Padova</title>
         <meta
           name="description"
-          content="Scopri gli itinerari virtuali completamente accessibili dei musei dell'Università di Padova. Esplora collezioni storiche, reperti scientifici e patrimonio culturale."
+          content="Scopri gli itinerari virtuali completamente accessibili dei musei dell&apos;Università di Padova. Esplora collezioni storiche, reperti scientifici e patrimonio culturale."
         />
         <meta name="google-site-verification" content="U21Rf3YmByvViL8vH972RwllCumoKq-30GfMY5Cfc9Y" />
         <meta name="keywords" content="musei università padova, itinerari virtuali, patrimonio culturale, accessibilità, WCAG" />
@@ -409,7 +409,7 @@ export default function Home() {
           >
             Esplora il patrimonio culturale e scientifico dei musei universitari attraverso
             percorsi virtuali interattivi e completamente accessibili. Scopri otto secoli di
-            storia, ricerca e innovazione dell'Università di Padova.
+            storia, ricerca e innovazione dell&apos;Università di Padova.
           </motion.p>
         </header>
 
