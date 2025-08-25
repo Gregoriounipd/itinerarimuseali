@@ -61,7 +61,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
       setDarkMode(true);
       document.documentElement.classList.add('dark');
@@ -71,7 +71,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
   const toggleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
-    
+
     if (newMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
@@ -106,7 +106,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
               <ChevronLeft className="w-5 h-5 flex-shrink-0" />
               <span className="font-medium text-sm sm:text-base truncate">Torna ai reperti</span>
             </Link>
-            
+
             <div className="flex items-center gap-3">
               {/* Toggle Dark Mode */}
               <button
@@ -135,11 +135,11 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
       {/* Hero Section - Layout mobile-first */}
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-purple-900/20">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-20">
           {/* Layout mobile: immagine sopra, testo sotto */}
           <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-12 lg:items-center">
-            
+
             {/* Immagine principale - Prima su mobile */}
             <div className="order-1 mb-6 lg:mb-0 lg:order-2">
               <div className="relative group">
@@ -163,14 +163,14 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-4 lg:mb-6 leading-tight">
                 {data.nome}
               </h1>
-              
+
               {/* Badge categoria */}
               {data.categoria && (
                 <div className="inline-flex items-center px-3 py-1.5 lg:px-4 lg:py-2 bg-white dark:bg-gray-800 rounded-full shadow-md mb-4 lg:mb-6 border border-gray-200 dark:border-gray-600">
                   <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">{data.categoria}</span>
                 </div>
               )}
-              
+
               {/* Descrizione breve */}
               <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6 lg:mb-8">
                 {data.descrizione}
@@ -179,9 +179,9 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
               {/* Pulsanti accessibilità - Stack su mobile */}
               <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 lg:gap-4">
                 {approfondimento?.audioguida_url && (
-                  <a 
-                    href={approfondimento.audioguida_url} 
-                    target="_blank" 
+                  <a
+                    href={approfondimento.audioguida_url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-3 bg-white dark:bg-gray-800 px-4 lg:px-6 py-3 rounded-xl shadow-lg hover:shadow-xl dark:shadow-gray-900/20 transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 touch-target"
                   >
@@ -211,9 +211,10 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
                 )}
 
                 {approfondimento?.approfondimento_url && (
-                  <a 
-                    href={approfondimento.approfondimento_url} 
-                    target="_blank" 
+                  <a
+                    href={approfondimento.approfondimento_url}
+                    download={approfondimento.approfondimento_url.endsWith(".pdf") || approfondimento.approfondimento_url.endsWith(".docx")}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-3 bg-white dark:bg-gray-800 px-4 lg:px-6 py-3 rounded-xl shadow-lg hover:shadow-xl dark:shadow-gray-900/20 transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 touch-target"
                   >
@@ -234,7 +235,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
 
       {/* Contenuto principale */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
-        
+
         {/* Testo approfondito */}
         {(approfondimento?.testo_lungo || data.descrizione) && (
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 lg:p-8 mb-6 lg:mb-8">
@@ -267,7 +268,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
                 <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
-            
+
             <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
               <iframe
                 className="w-full h-full"
