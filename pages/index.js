@@ -38,7 +38,7 @@ export default function Home() {
         announcement.setAttribute('aria-live', 'assertive')
         announcement.setAttribute('aria-atomic', 'true')
         announcement.className = 'sr-only'
-        announcement.textContent = 'Benvenuto. Questo sito è completamente accessibile secondo gli standard WCAG 2.1 AA. Premi Invio per aprire la guida completa all\'accessibilità.'
+        announcement.textContent = 'Benvenuto. Questo sito è completamente accessibile secondo gli standard WCAG 2.1 AA. Premi Invio per aprire la guida completa all\&apos; accessibilità.'
         document.body.appendChild(announcement)
         
         setTimeout(() => {
