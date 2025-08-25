@@ -168,7 +168,7 @@ export default function Home() {
     { icon: Users, label: 'Partecipanti attesi', value: '500+', description: 'Numero di partecipanti previsti agli eventi' },
     { icon: BookOpen, label: 'Workshop e Laboratori', value: '10+', description: 'Attività formative disponibili' },
     { icon: Calendar, label: 'Giorni di evento', value: '3', description: 'Durata complessiva degli eventi' },
-    { icon: Landmark, label: 'Luogo storico', value: 'Palazzo Bo', description: 'Sede storica dell\'università' },
+    { icon: Landmark, label: 'Luogo storico', value: 'Palazzo Bo', description: 'Sede storica dell\&apos;università' },
     { icon: Book, label: 'Formazione e cultura', value: 'Esperienze immersive', description: 'Tipologia di attività offerte' }
   ]
 
@@ -398,7 +398,7 @@ export default function Home() {
             Itinerari Virtuali
             <br />
             <span className="text-3xl md:text-4xl font-semibold text-blue-700 dark:text-blue-400">
-              Musei dell'Università di Padova
+              Musei dell&apos;Università di Padova
             </span>
           </motion.h1>
           <motion.p
