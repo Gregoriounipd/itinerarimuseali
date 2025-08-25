@@ -102,7 +102,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti }) {
       <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex items-center justify-between h-14 sm:h-16">
-            <Link href="/reperti" className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors touch-target">
+            <Link href="/itinerario/ed9b295c-13d1-4ab5-a620-2294c8d3fac9" className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors touch-target">
               <ChevronLeft className="w-5 h-5 flex-shrink-0" />
               <span className="font-medium text-sm sm:text-base truncate">Torna ai reperti</span>
             </Link>
