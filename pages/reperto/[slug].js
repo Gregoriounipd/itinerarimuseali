@@ -380,7 +380,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                         </div>
                         <div className="text-left">
                           <span className="block text-base font-semibold text-gray-900 dark:text-white">audiodescrizione</span>
-                          <span id="audio-desc" className="block text-sm text-gray-500 dark:text-gray-400">Ascolta l'audiodescrizionee completa</span>
+                          <span id="audio-desc" className="block text-sm text-gray-500 dark:text-gray-400">Ascolta l&apos;audiodescrizione completa</span>   
                         </div>
                       </button>
                     )}
