@@ -120,7 +120,7 @@ export default function HeroBanner({ scrollToId }) {
           
           <div className="text-right">
             <div className="text-white/60 text-sm">
-              Patrimonio culturale e scientifico
+              Patrimonio culturale e scientifico di Ateneo
             </div>
           </div>
         </div>
