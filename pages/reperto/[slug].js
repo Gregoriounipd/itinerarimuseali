@@ -379,8 +379,8 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                           <Volume2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                         </div>
                         <div className="text-left">
-                          <span className="block text-base font-semibold text-gray-900 dark:text-white">Audioguida</span>
-                          <span id="audio-desc" className="block text-sm text-gray-500 dark:text-gray-400">Ascolta la descrizione completa</span>
+                          <span className="block text-base font-semibold text-gray-900 dark:text-white">audiodescrizione</span>
+                          <span id="audio-desc" className="block text-sm text-gray-500 dark:text-gray-400">Ascolta l'audiodescrizionee completa</span>
                         </div>
                       </button>
                     )}
@@ -433,8 +433,8 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                           <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
                         </div>
                         <div className="text-left">
-                          <span className="block text-base font-semibold text-gray-900 dark:text-white">English PDF</span>
-                          <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">Apri versione inglese</span>
+                          <span className="block text-base font-semibold text-gray-900 dark:text-white">English Version</span>
+                          <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">Open the english version</span>
                         </div>
                       </a>
                     )}
