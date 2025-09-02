@@ -400,7 +400,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                         </div>
                       </button>
                     )}
-
+                    {/* Link guida CAA */}
                     {approfondimento?.approfondimento_url && (
                       <a
                         href={approfondimento.approfondimento_url}
@@ -420,6 +420,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                       </a>
                     )}
 
+                    {/*PDF in inglese se disponibile */}
                     {approfondimento?.pdf_inglese_url && (
                       <a
                         href={approfondimento.pdf_inglese_url}
@@ -497,8 +498,8 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                   />
                 </div>
                 <p id="video-description" className="text-sm text-gray-600 dark:text-gray-400 italic leading-relaxed">
-                  Questo video fornisce una descrizione completa del reperto "{data.nome}" in Lingua dei Segni Italiana,
-                  garantendo l'accessibilità per le persone sorde e ipoudenti.
+                  Questo video fornisce una descrizione completa del reperto &#34;{data.nome}&#34; in Lingua dei Segni Italiana,
+                  garantendo l&apos;accessibilità per le persone sorde e ipoudenti.
                 </p>
               </section>
             )}
@@ -559,15 +560,15 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                           className="w-full h-40 object-contain rounded-lg bg-white dark:bg-gray-800"
                         />
                       )}
-                      
+
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                         {rep.titolo}
                       </h3>
-                      
+
                       {rep.descrizione_breve && (
                         <p className="text-sm text-gray-600 dark:text-gray-300">{rep.descrizione_breve}</p>
                       )}
-                      
+
                       {rep.audiodescrizione_url && (
                         <button
                           onClick={() => {
