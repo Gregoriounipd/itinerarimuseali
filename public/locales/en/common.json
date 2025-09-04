@@ -1,0 +1,12 @@
+{
+    "navigation": {
+        "backToItinerary": "Back to artifacts",
+        "skipTo": "Skip to main content"
+    },
+    "accessiblity": {
+        "toggleDark": "Toggle dark mode",
+        "toggleLight": "Toggle light mode",
+        "changeLanguage": "Change language",
+        "currentLanguage": "English"
+    }
+}

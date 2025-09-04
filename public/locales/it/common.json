@@ -1,0 +1,12 @@
+{
+    "navigation": {
+        "backToItainerary": "Torna all'itinerario",
+        "skipToContent": "Salta al contenuto principale"
+    },
+    "accessbility": {
+        "toggleDark": "Attiva modalità scura",
+        "toggleLight": "Attiva modalità chiara",
+        "changeLanguage": "Cambia lingua",
+        "currentLanguage": "Italiano"
+    }
+}

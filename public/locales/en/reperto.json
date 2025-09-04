@@ -1,0 +1,10 @@
+{
+  "title": "Artifact",
+  "loading": "Loading...",
+  "buttons": {
+    "audioguide": "Audio Guide",
+    "videoLIS": "Sign Language Video",
+    "caa": "AAC",
+    "englishPDF": "English PDF"
+  }
+}

@@ -4,11 +4,36 @@ import { useEffect, useState, useRef } from 'react';
 import { ChevronLeft, Volume2, PlayCircle, BookOpen, X, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useTranslation } from 'react-i18next';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
+
+// Helper function per testi da database
+const useDbTranslation = () => {
+
+  const { t, i18n } = useTranslation('common'); // Aggiungi i18n
+
+  const getDbText = (item, field) => {
+    if (!item) return '';
+
+    const currentLang = i18n.language;
+    const englishField = `${field}_eng`;
+
+
+    // Se la lingua è inglese E esiste il campo tradotto, usa quello
+    if (currentLang === 'en' && item[englishField]) {
+      return item[englishField];
+    }
+
+    // Altrimenti usa il campo originale italiano
+    return item[field];
+  };
+
+  return { getDbText };
+};
 
 export async function getServerSideProps({ params }) {
   const { slug } = params;
@@ -99,6 +124,15 @@ function AudioModal({ url, onClose, repertoNome }) {
 
   if (!url) return null;
 
+  console.log('🔍 DEBUG TITOLO:', {
+    lingua: i18n?.language || 'undefined',
+    approfondimento: approfondimento,
+    testo_breve: approfondimento?.testo_breve,
+    testo_breve_eng: approfondimento?.testo_breve_eng,
+    risultatoGetDbText: getDbText(approfondimento, 'testo_breve')
+  });
+
+
   return (
     <div
       className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
@@ -153,6 +187,8 @@ function AudioModal({ url, onClose, repertoNome }) {
 }
 
 export default function RepertoPage({ approfondimento, data, dataReperti, repertiCollegati }) {
+  const { t } = useTranslation('common');
+  const { getDbText } = useDbTranslation();
   const [videoId, setVideoId] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -161,7 +197,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
   const [isClient, setIsClient] = useState(false);
   const [audioUrl, setAudioUrl] = useState(null);
   const [repertoNome, setRepertoNome] = useState('');
-
+  const { i18n } = useTranslation('common');
   const videoRef = useRef(null);
   const announcementRef = useRef(null);
 
@@ -255,8 +291,8 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
   return (
     <>
       <Head>
-        <title>{data.nome} - Musei Università di Padova</title>
-        <meta name="description" content={`${data.descrizione || data.nome} - Reperto dei Musei dell'Università di Padova con contenuti accessibili`} />
+        <title>{getDbText(data, 'nome')} - Musei Università di Padova</title>
+        <meta name="description" content={`${getDbText(data, 'descrizione') || data.nome} - Reperto dei Musei dell'Università di Padova con contenuti accessibili`} />
         <meta name="keywords" content={`${data.nome}, ${data.categoria || ''}, musei università padova, accessibilità, WCAG`} />
       </Head>
 
@@ -289,7 +325,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                   onClick={toggleDarkMode}
                   disabled={!isClient}
                   className="p-3 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors disabled:opacity-50 min-h-[44px] min-w-[44px]"
-                  aria-label={darkMode ? 'Attiva modalità chiara' : 'Attiva modalità scura'}
+                  aria-label={darkMode ? "Disattiva modalità scura" : "Attiva modalità scura"}
                 >
                   {darkMode ? (
                     <Sun className="w-5 h-5 text-yellow-500" />
@@ -347,97 +383,105 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                 <div className="order-2 lg:order-1">
                   <header>
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                      {data.nome}
+                      {i18n?.language === 'en' ?
+                        (approfondimento?.testo_breve_eng || approfondimento?.testo_breve || data.nome) :
+                        (approfondimento?.testo_breve || data.nome)
+                      }
                     </h1>
 
                     {data.categoria && (
                       <div className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-md mb-6 border border-gray-200 dark:border-gray-600">
                         <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          Categoria: {data.categoria}
+                          Categoria: {getDbText(data, 'categoria')}
                         </span>
                       </div>
                     )}
 
                     <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-                      {data.descrizione}
+                      {getDbText(data, 'descrizione')}
                     </p>
                   </header>
 
                   {/* Pulsanti accessibilità */}
                   <div
-                    className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+                    className="flex flex-col gap-4"
                     role="group"
                     aria-label="Contenuti accessibili per questo reperto"
                   >
-                    {approfondimento?.audioguida_url && (
-                      <button
-                        onClick={() => setShowAudio(true)}
-                        className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                        aria-describedby="audio-desc"
-                      >
-                        <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition-colors">
-                          <Volume2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-base font-semibold text-gray-900 dark:text-white">audiodescrizione</span>
-                          <span id="audio-desc" className="block text-sm text-gray-500 dark:text-gray-400">Ascolta l&apos;audiodescrizione completa</span>   
-                        </div>
-                      </button>
-                    )}
+                    {/* Prima riga - 2 bottoni */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {approfondimento?.audioguida_url && (
+                        <button
+                          onClick={() => setShowAudio(true)}
+                          className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+                          aria-describedby="audio-desc"
+                        >
+                          <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition-colors">
+                            <Volume2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                          </div>
+                          <div className="text-left">
+                            <span className="block text-base font-semibold text-gray-900 dark:text-white">Audioguida</span>
+                            <span id="audio-desc" className="block text-sm text-gray-500 dark:text-gray-400">Ascolta la descrizione completa</span>
+                          </div>
+                        </button>
+                      )}
 
-                    {approfondimento?.video_lis_url && (
-                      <button
-                        onClick={scrollToVideo}
-                        className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                        aria-describedby="video-desc"
-                      >
-                        <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-lg group-hover:bg-purple-200 dark:group-hover:bg-purple-800 transition-colors">
-                          <PlayCircle className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-base font-semibold text-gray-900 dark:text-white">Video LIS</span>
-                          <span id="video-desc" className="block text-sm text-gray-500 dark:text-gray-400">Lingua dei Segni Italiana</span>
-                        </div>
-                      </button>
-                    )}
-                    {/* Link guida CAA */}
-                    {approfondimento?.approfondimento_url && (
-                      <a
-                        href={approfondimento.approfondimento_url}
-                        download={approfondimento.approfondimento_url.endsWith(".pdf") || approfondimento.approfondimento_url.endsWith(".docx")}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                        aria-describedby="caa-desc"
-                      >
-                        <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
-                          <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-base font-semibold text-gray-900 dark:text-white">CAA</span>
-                          <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">Comunicazione Aumentativa</span>
-                        </div>
-                      </a>
-                    )}
+                      {approfondimento?.video_lis_url && (
+                        <button
+                          onClick={scrollToVideo}
+                          className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+                          aria-describedby="video-desc"
+                        >
+                          <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-lg group-hover:bg-purple-200 dark:group-hover:bg-purple-800 transition-colors">
+                            <PlayCircle className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                          </div>
+                          <div className="text-left">
+                            <span className="block text-base font-semibold text-gray-900 dark:text-white">Video LIS</span>
+                            <span id="video-desc" className="block text-sm text-gray-500 dark:text-gray-400">Lingua dei Segni Italiana</span>
+                          </div>
+                        </button>
+                      )}
+                    </div>
 
-                    {/*PDF in inglese se disponibile */}
-                    {approfondimento?.pdf_inglese_url && (
-                      <a
-                        href={approfondimento.pdf_inglese_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                        aria-describedby="pdf-eng-desc"
-                      >
-                        <div className="bg-amber-100 dark:bg-amber-900 p-3 rounded-lg group-hover:bg-amber-200 dark:group-hover:bg-amber-800 transition-colors">
-                          <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-base font-semibold text-gray-900 dark:text-white">English Version</span>
-                          <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">Open the english version</span>
-                        </div>
-                      </a>
-                    )}
+                    {/* Seconda riga - 2 bottoni */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {approfondimento?.approfondimento_url && (
+                        <a
+                          href={approfondimento.approfondimento_url}
+                          download={approfondimento.approfondimento_url.endsWith(".pdf") || approfondimento.approfondimento_url.endsWith(".docx")}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+                          aria-describedby="caa-desc"
+                        >
+                          <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
+                            <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
+                          </div>
+                          <div className="text-left">
+                            <span className="block text-base font-semibold text-gray-900 dark:text-white">CAA</span>
+                            <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">Comunicazione Aumentativa</span>
+                          </div>
+                        </a>
+                      )}
+
+                      {approfondimento?.pdf_inglese_url && (
+                        <a
+                          href={approfondimento.pdf_inglese_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+                          aria-describedby="pdf-eng-desc"
+                        >
+                          <div className="bg-amber-100 dark:bg-amber-900 p-3 rounded-lg group-hover:bg-amber-200 dark:group-hover:bg-amber-800 transition-colors">
+                            <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+                          </div>
+                          <div className="text-left">
+                            <span className="block text-base font-semibold text-gray-900 dark:text-white">English PDF</span>
+                            <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">Apri versione inglese</span>
+                          </div>
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -448,18 +492,18 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
             {/* Descrizione approfondita */}
-            {(approfondimento?.testo_lungo || data.descrizione) && (
+            {(approfondimento?.testo_lungo || approfondimento?.testo_lungo_eng) && (
               <section
                 className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 lg:p-8 mb-8"
                 aria-labelledby="descrizione-title"
               >
                 <h2 id="descrizione-title" className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                   <div className="w-1 h-8 bg-blue-500 rounded-full"></div>
-                  Descrizione dettagliata
+                  {getDbText(approfondimento, 'testo_breve') || 'Descrizione dettagliata'}
                 </h2>
                 <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
                   <p className="leading-relaxed text-lg">
-                    {approfondimento?.testo_lungo || data.descrizione}
+                    {getDbText(approfondimento, 'testo_lungo') || data.descrizione}
                   </p>
                 </div>
               </section>
@@ -498,9 +542,61 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                   />
                 </div>
                 <p id="video-description" className="text-sm text-gray-600 dark:text-gray-400 italic leading-relaxed">
-                  Questo video fornisce una descrizione completa del reperto &#34;{data.nome}&#34; in Lingua dei Segni Italiana,
-                  garantendo l&apos;accessibilità per le persone sorde e ipoudenti.
+                  Questo video fornisce una descrizione completa del reperto "{data.nome}" in Lingua dei Segni Italiana,
+                  garantendo l'accessibilità per le persone sorde e ipoudenti.
                 </p>
+              </section>
+            )}
+
+            {/* Informazioni tecniche */}
+            {(data.datazione || data.provenienza || data.materiale) && (
+              <section
+                className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-700/50 rounded-2xl p-6 lg:p-8 mb-8 border border-gray-200 dark:border-gray-600"
+                aria-labelledby="info-tecniche-title"
+              >
+                <h2 id="info-tecniche-title" className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <div className="w-1 h-8 bg-green-500 rounded-full"></div>
+                  Informazioni tecniche
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {repertiCollegati.map((rep, index) => (
+                    <div
+                      key={rep.id || index}
+                      className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-600 flex flex-col gap-3"
+                    >
+                      {rep.immagine && (
+                        <img
+                          src={rep.immagine}
+                          alt={rep.titolo || 'Reperto collegato'}
+                          className="w-full h-40 object-contain rounded-lg bg-white dark:bg-gray-800"
+                        />
+                      )}
+
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        {rep.titolo}
+                      </h3>
+
+                      {rep.descrizione_breve && (
+                        <p className="text-sm text-gray-600 dark:text-gray-300">{rep.descrizione_breve}</p>
+                      )}
+
+                      {rep.audiodescrizione_url && (
+                        <button
+                          onClick={() => {
+                            setShowAudio(true);
+                            setAudioUrl(rep.audiodescrizione_url);
+                            setRepertoNome(rep.titolo);
+                          }}
+                          className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors min-h-[44px]"
+                          aria-label={`Ascolta audiodescrizione di ${rep.titolo}`}
+                        >
+                          <Volume2 className="w-4 h-4" />
+                          Ascolta audiodescrizione
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </section>
             )}
 
@@ -588,6 +684,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                 </div>
               </section>
             )}
+
 
             {/* Navigazione reperti */}
             <section
