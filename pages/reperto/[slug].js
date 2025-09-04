@@ -542,8 +542,9 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                   />
                 </div>
                 <p id="video-description" className="text-sm text-gray-600 dark:text-gray-400 italic leading-relaxed">
-                  Questo video fornisce una descrizione completa del reperto "{data.nome}" in Lingua dei Segni Italiana,
-                  garantendo l'accessibilità per le persone sorde e ipoudenti.
+                  Questo video fornisce una descrizione completa del reperto &#34;
+                  {data.nome}&#34; in Lingua dei Segni Italiana,
+                  garantendo l&apos;accessibilità per le persone sorde e ipoudenti.
                 </p>
               </section>
             )}
