@@ -124,7 +124,7 @@ export default function Itinerario() {
   }
 
  return (
-    <div className={`min-h-screen w-full ${theme.bg} ${isMostraModelli ? "bg-[url('/images/Fondalecalendario.jpg')] bg-repeat bg-fixed" : ""}`}>
+    <div className={`min-h-screen w-full ${theme.bg} ${isMostraModelli ? "bg-[url('/images/fondalecalendario.jpg')] bg-repeat bg-fixed" : ""}`}>
       {/* Skip link migliorato */}
       <a
         href="#reperti"
