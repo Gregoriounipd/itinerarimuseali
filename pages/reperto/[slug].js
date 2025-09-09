@@ -124,13 +124,7 @@ function AudioModal({ url, onClose, repertoNome }) {
 
   if (!url) return null;
 
-  console.log('🔍 DEBUG TITOLO:', {
-    lingua: i18n?.language || 'undefined',
-    approfondimento: approfondimento,
-    testo_breve: approfondimento?.testo_breve,
-    testo_breve_eng: approfondimento?.testo_breve_eng,
-    risultatoGetDbText: getDbText(approfondimento, 'testo_breve')
-  });
+  
 
 
   return (
@@ -201,6 +195,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
   const videoRef = useRef(null);
   const announcementRef = useRef(null);
 
+ 
   // Gestione client-side mounting
   useEffect(() => {
     setIsClient(true);
@@ -443,7 +438,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                       )}
                     </div>
 
-                    {/* Seconda riga - 2 bottoni */}
+                    {/* Storia sociale + pdf ing- 2 bottoni */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {approfondimento?.approfondimento_url && (
                         <a
