@@ -57,6 +57,7 @@ export default function Itinerario() {
           .from('reperti')
           .select('*')
           .eq('itinerario_id', id)
+          .order('numero_marker', { ascending: true })
 
         if (repertiError) {
           console.error('Errore nei reperti:', repertiError)

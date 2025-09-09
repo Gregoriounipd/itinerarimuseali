@@ -11,7 +11,7 @@ export default function NavigazioneReperti({ data, dataReperti }) {
   
 
   // Ordina i reperti per 'ordine'
-  const repertiOrdinati = repertiFiltrati.sort((a, b) => a.ordine - b.ordine);
+  const repertiOrdinati = repertiFiltrati.sort((a, b) => a.numero_marker - b.numero_marker);
 
   
 
