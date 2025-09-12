@@ -38,7 +38,7 @@ export default function ProgettoMostraModelli() {
                 <Volume2 className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               </div>
               <span className="text-base font-semibold text-gray-900 dark:text-gray-100 "> Audioguida</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Ascolta l'audio descrizione per il funzionamento della Mostra Modelli</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Ascolta l&apos;audio descrizione per il funzionamento della Mostra Modelli</span>
             </button>
           </div>
 
@@ -57,22 +57,22 @@ export default function ProgettoMostraModelli() {
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                 Si diffondono nelle università nel '700 e soprattutto
-                nell'800. Li scoprirete nella nuova mostra temporanea del{" "}
+                nell&apos;800. Li scoprirete nella nuova mostra temporanea del{" "}
                 <strong>Museo Poleni</strong>, che vede per la prima volta esposti
                 al pubblico modelli provenienti da vari musei e collezioni
-                dell'Università di Padova.
+                dell&apos;Università di Padova.
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                 Una mostra che svela anche pagine poco note della storia
-                dell'ateneo e del territorio.
+                dell&apos;ateneo e del territorio.
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                La mostra dei modelli è nata con l'obiettivo di rendere{" "}
+                La mostra dei modelli è nata con l&apos;obiettivo di rendere{" "}
                 <strong>accessibili, tangibili e comprensibili</strong> alcuni dei
                 reperti più significativi conservati nei musei. Ogni modello è
-                stato realizzato con particolare attenzione all'accessibilità
+                stato realizzato con particolare attenzione all&apos;accessibilità
                 e alla multisensorialità.
               </p>
             </div>
@@ -106,7 +106,7 @@ export default function ProgettoMostraModelli() {
                 Date di apertura:
               </dt>
               <dd className="inline ml-2">
-                dall'11 maggio 2025 al 3 maggio 2026
+                dall&apos;11 maggio 2025 al 3 maggio 2026
               </dd>
             </div>
             <div>
@@ -114,7 +114,7 @@ export default function ProgettoMostraModelli() {
                 Ingresso:
               </dt>
               <dd className="inline ml-2 text-gray-700 dark:text-gray-300">
-                gratuito per tutti fino all'8 giugno 2025
+                gratuito per tutti fino all&apos;8 giugno 2025
               </dd>
             </div>
           </dl>
@@ -130,7 +130,7 @@ export default function ProgettoMostraModelli() {
                 Aperture:
               </dt>
               <dd className="mt-1 text-gray-700 dark:text-gray-300">
-                Ogni domenica dall'11 maggio al 3 giugno 2025, dalle 14:30 alle 18:30
+                Ogni domenica dall&apos;11 maggio al 3 giugno 2025, dalle 14:30 alle 18:30
               </dd>
             </div>
             <div>
@@ -139,7 +139,7 @@ export default function ProgettoMostraModelli() {
               </dt>
               <dd className="mt-2">
                 <ul className="ml-4 list-disc space-y-1 text-gray-700 dark:text-gray-300">
-                  <li>Disponibili nelle domeniche fino all'8 giugno 2025</li>
+                  <li>Disponibili nelle domeniche fino all&apos;8 giugno 2025</li>
                   <li>Riprendono a settembre 2025</li>
                   <li>Due turni: ore 15:00 e ore 17:00</li>
                 </ul>
@@ -167,8 +167,8 @@ export default function ProgettoMostraModelli() {
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
             Per informazioni dettagliate sulle visite guidate e
-            sull'accessibilità, contattare il Museo Poleni
-            dell'Università di Padova.
+            sull&apos;accessibilità, contattare il Museo Poleni
+            dell&apos;Università di Padova.
           </p>
         </section>
       </div>
@@ -182,7 +182,7 @@ export default function ProgettoMostraModelli() {
             </h3>
             <audio controls className="w-full mb-4">
               <source src="/audio/audioguida-mostra-modelli.mp3" type="audio/mpeg" />
-              Il tuo browser non supporta l'elemento audio.
+              Il tuo browser non supporta l&apos;elemento audio.
             </audio>
             <button
               onClick={() => setShowAudio(false)}
