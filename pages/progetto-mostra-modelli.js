@@ -25,24 +25,30 @@ export default function ProgettoMostraModelli() {
             />
           </figure>
         </div>
+      </div>
 
-        {/* Sezione con i bottoon */}
-        <div className="max-w-6xl mx-auto mb-16">
-          <div className="flex flex-col lg:flex-row items-start gap-6">
+      {/* SEZIONE CON I BOTTONI LATERALI E TESTO CENTRALE */}
+      <div className="max-w-6xl mx-auto mb-16">
+        <div className="flex flex-col lg:flex-row items-start gap-6">
+
+          {/* BOTTONE AUDIOGUIDA A SINISTRA */}
+          <div className="lg:w-48 w-full lg:sticky lg:top-8">
             <button
               onClick={() => setShowAudio(true)}
-              className="w-full group flex felx-col items-center gap-3 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl-transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600"
+              className="w-full group flex flex-col items-center gap-3 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600"
               aria-label="Ascolta l'audio descrizione per il funzionamento della Mostra Modelli"
             >
               <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-full group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition-colors">
                 <Volume2 className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               </div>
-              <span className="text-base font-semibold text-gray-900 dark:text-gray-100 "> Audioguida</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Ascolta l&apos;audio descrizione per il funzionamento della Mostra Modelli</span>
+              <span className="text-base font-semibold text-gray-900 dark:text-gray-100">Audioguida</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Ascolta la descrizione</span>
             </button>
           </div>
 
+
           {/* TESTO CENTRALE */}
+
           <div className="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-8 border border-gray-200 dark:border-gray-700">
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-8 text-center">
               Il progetto della Mostra Modelli
@@ -78,6 +84,7 @@ export default function ProgettoMostraModelli() {
             </div>
           </div>
 
+          {/* BOTTONE VIDEO LIS A DESTRA */}
           <div className="lg:w-48 w-full lg:sticky lg:top-8">
             <button
               onClick={() => setShowVideo(true)}
@@ -87,10 +94,11 @@ export default function ProgettoMostraModelli() {
               <div className="bg-purple-100 dark:bg-purple-900 p-4 rounded-full group-hover:bg-purple-200 dark:group-hover:bg-purple-800 transition-colors">
                 <PlayCircle className="w-8 h-8 text-purple-600 dark:text-purple-400" />
               </div>
-              <span className="text-base font-semibold text-gray-900 dark:text-gray-100"> Video in LIS</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Guarda il video in Lingua dei Segni Italiana (LIS)</span>
+              <span className="text-base font-semibold text-gray-900 dark:text-gray-100">Video in LIS</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Lingua dei Segni</span>
             </button>
           </div>
+
         </div>
       </div>
 
@@ -220,6 +228,6 @@ export default function ProgettoMostraModelli() {
           </div>
         </div>
       )}
-      </article>
+    </article>
   );
 }
