@@ -56,7 +56,7 @@ export default function ProgettoMostraModelli() {
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Si diffondono nelle università nel '700 e soprattutto
+                Si diffondono nelle università nel &apos;700 e soprattutto
                 nell&apos;800. Li scoprirete nella nuova mostra temporanea del{" "}
                 <strong>Museo Poleni</strong>, che vede per la prima volta esposti
                 al pubblico modelli provenienti da vari musei e collezioni
