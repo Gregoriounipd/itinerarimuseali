@@ -1,0 +1,10 @@
+{
+    "title": "Reperto",
+    "loading": "Cargando...",
+    "buttons": {
+        "audioguide": "Audioguía",
+        "videoLIS": "Video en Lengua de Señas",
+        "caa": "AAC",
+        "englishPDF": "PDF en Inglés"
+    }
+}

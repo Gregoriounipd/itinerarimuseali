@@ -13,29 +13,47 @@ const supabase = createClient(
 
 // Helper function per testi da database
 const useDbTranslation = () => {
+  const { t, i18n } = useTranslation('common');
+  const [mounted, setMounted] = useState(false);
 
-  const { t, i18n } = useTranslation('common'); // Aggiungi i18n
+
+
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getDbText = (item, field) => {
     if (!item) return '';
-
-    const currentLang = i18n.language;
-    const englishField = `${field}_eng`;
+ 
 
 
-    // Se la lingua è inglese E esiste il campo tradotto, usa quello
-    if (currentLang === 'en' && item[englishField]) {
-      return item[englishField];
+    // Se la lingua è inglese Ed esiste il campo tradotto, usa quello
+    if (!mounted) {
+      return item[field];
     }
 
-    // Altrimenti usa il campo originale italiano
-    return item[field];
+   
+    const currentLang = i18n.language; // 'it', 'en', 'es', ecc.
+    const englishField = `${field}_eng`;
+    const spanishField = `${field}_spa`;
+
+    if (currentLang === 'en' && item[englishField]) {
+      return item[englishField]; // Usa il campo in inglese se esiste
+    }
+    if (currentLang === 'es' && item[spanishField]) {
+      return item[spanishField]; // Usa il campo in spagnolo se esiste
+    }
+return item[field]; 
+    
   };
 
   return { getDbText };
 };
 
-export async function getServerSideProps({ params }) {
+
+
+export async function getServerSideProps({ params, locale }) {
   const { slug } = params;
 
   // Query reperti collegati
@@ -75,6 +93,7 @@ export async function getServerSideProps({ params }) {
       approfondimento: approfondimento || null,
       dataReperti,
       repertiCollegati: repertiCollegati || [],
+      initialLocale: locale || 'it',
     },
   };
 }
@@ -124,7 +143,7 @@ function AudioModal({ url, onClose, repertoNome }) {
 
   if (!url) return null;
 
-  
+
 
 
   return (
@@ -195,7 +214,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
   const videoRef = useRef(null);
   const announcementRef = useRef(null);
 
- 
+
   // Gestione client-side mounting
   useEffect(() => {
     setIsClient(true);
@@ -378,10 +397,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                 <div className="order-2 lg:order-1">
                   <header>
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                      {i18n?.language === 'en' ?
-                        (approfondimento?.testo_breve_eng || approfondimento?.testo_breve || data.nome) :
-                        (approfondimento?.testo_breve || data.nome)
-                      }
+                      {getDbText(approfondimento || data, approfondimento ? 'testo_breve' : 'nome')}
                     </h1>
 
                     {data.categoria && (
@@ -596,38 +612,6 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
               </section>
             )}
 
-            {/* Informazioni tecniche */}
-            {(data.datazione || data.provenienza || data.materiale) && (
-              <section
-                className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-700/50 rounded-2xl p-6 lg:p-8 mb-8 border border-gray-200 dark:border-gray-600"
-                aria-labelledby="info-tecniche-title"
-              >
-                <h2 id="info-tecniche-title" className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                  <div className="w-1 h-8 bg-green-500 rounded-full"></div>
-                  Informazioni tecniche
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {data.datazione && (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
-                      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Datazione</h3>
-                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.datazione}</p>
-                    </div>
-                  )}
-                  {data.provenienza && (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
-                      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Provenienza</h3>
-                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.provenienza}</p>
-                    </div>
-                  )}
-                  {data.materiale && (
-                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
-                      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Materiale</h3>
-                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.materiale}</p>
-                    </div>
-                  )}
-                </div>
-              </section>
-            )}
 
             {/* Altri reperti collegati */}
             {repertiCollegati && repertiCollegati.length > 0 && (

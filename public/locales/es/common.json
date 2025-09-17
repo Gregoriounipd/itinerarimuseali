@@ -1,0 +1,12 @@
+{
+    "navigation": {
+        "backToItinerary": "Volver a artefactos",
+        "skipTo": "Saltar a contenido principal"
+    },
+    "accessiblity": {
+        "toggleDark": "Cambiar a modo oscuro",
+        "toggleLight": "Cambiar a modo claro",
+        "changeLanguage": "Cambiar idioma",
+        "currentLanguage": "Español"
+    }
+}
