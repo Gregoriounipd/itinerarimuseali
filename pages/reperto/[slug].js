@@ -38,6 +38,8 @@ const useDbTranslation = () => {
     const englishField = `${field}_eng`;
     const spanishField = `${field}_spa`;
 
+    
+
     if (currentLang === 'en' && item[englishField]) {
       return item[englishField]; // Usa il campo in inglese se esiste
     }
@@ -437,7 +439,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                         </button>
                       )}
 
-                      {approfondimento?.video_lis_url && (
+                      {approfondimento?.video_lis_url && ( //tabella riferimento supabase
                         <button
                           onClick={scrollToVideo}
                           className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"

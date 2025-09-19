@@ -1,17 +1,49 @@
 import Image from "next/image";
 import { Volume2, PlayCircle } from "lucide-react";
 import { useState } from "react";
-
+import { usePageTranslation } from "@/hooks/usePageTranslation";
+import { t } from "i18next";
 
 export default function ProgettoMostraModelli() {
   const [showAudio, setShowAudio] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
 
+  const originalTexts={
+  title: "Il progetto della Mostra Modelli",
+  paragraph1: "Animali, piante, ponti, statue, fossili, macchine, minerali… tutto può essere modellizzato! I modelli hanno di fatto svolto un ruolo cruciale per lo sviluppo del sapere in svariati settori.",
+  paragraph2: "Si diffondono nelle università nel '700 e soprattutto nell'800. Li scoprirete nella nuova mostra temporanea del Museo Poleni, che vede per la prima volta esposti al pubblico modelli provenienti da vari musei e collezioni dell'Università di Padova.",
+  paragraph3: "Una mostra che svela anche pagine poco note della storia dell'ateneo e del territorio",
+  paragraph4: "La mostra dei modelli è nata con l'obiettivo di rendere accessibili, tangibili e comprensibili alcuni dei reperti più significativi conservati nei musei. Ogni modello è stato realizzato con particolare attenzione all'accessibilità e alla multisensorialità.",
+  dateLabel: "Date di apertura:",
+  dateValue: "dall'11 maggio 2025 al 3 maggio 2026",
+  entryLabel: "Ingresso:",
+  entryValue: "gratuito per tutti fino all'8 giugno 2025",
+  practicalInfoTitle: "🕐 Informazioni pratiche",
+  practicalInfo1Label: "Aperture:",
+  practicalInfo1Value: "Ogni domenica dall'11 maggio al 3 giugno 2025, dalle 14:30 alle 18:30",
+  practicalInfo2Label: "Visite guidate gratuite:",
+  practicalInfo2Value: "Disponibili nelle domeniche fino all'8 giugno 2025, Riprendono a settembre 2025, Due turni: ore 15:00 e ore 17:00",   
+  inclusionTitle: "♿ Inclusione e accessibilità",
+  inclusionText: "Il progetto si inserisce in un percorso più ampio di inclusione culturale, promuovendo strumenti visivi e tattili specificamente progettati per il pubblico con disabilità.",
+  contactTitle: "📞 Informazioni e prenotazioni",
+  contactText: "Per informazioni dettagliate sulle visite guidate e sull'accessibilità, contattare il Museo Poleni dell'Università di Padova.",
+  audioButton: "Audioguida",
+  videoButton: "Video in LIS",
+  practicalInfo3Label: "Informazioni essenziali",
+  };
 
+  const { texts, isTranslating } = usePageTranslation(originalTexts);
 
   return (
     <article
       className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+         {isTranslating && (
+        <div className="fixed top-20 right-4 bg-blue-100 px-4 py-2 rounded-lg shadow z-50">
+          Traduzione in corso...
+        </div>
+      )}
+      
+      {/* BANNER INIZIALE */}
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 sm:py-12">
         <div className="flex justify-center mb-12">
           <figure className="w-full max-w-3xl">
@@ -41,7 +73,7 @@ export default function ProgettoMostraModelli() {
               <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-full group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition-colors">
                 <Volume2 className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               </div>
-              <span className="text-base font-semibold text-gray-900 dark:text-gray-100">Audioguida</span>
+              <span className="text-base font-semibold text-gray-900 dark:text-gray-100">{texts.audioButton}</span>
               <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Ascolta la descrizione</span>
             </button>
           </div>
@@ -51,35 +83,24 @@ export default function ProgettoMostraModelli() {
 
           <div className="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-8 border border-gray-200 dark:border-gray-700">
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-8 text-center">
-              Il progetto della Mostra Modelli
+              {texts.title}
             </h1>
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Animali, piante, ponti, statue, fossili, macchine, minerali… tutto
-                può essere modellizzato! I modelli hanno di fatto svolto un ruolo
-                cruciale per lo sviluppo del sapere in svariati settori.
+                {texts.paragraph1}
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Si diffondono nelle università nel &apos;700 e soprattutto
-                nell&apos;800. Li scoprirete nella nuova mostra temporanea del{" "}
-                <strong>Museo Poleni</strong>, che vede per la prima volta esposti
-                al pubblico modelli provenienti da vari musei e collezioni
-                dell&apos;Università di Padova.
+                {texts.paragraph2}
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                Una mostra che svela anche pagine poco note della storia
-                dell&apos;ateneo e del territorio.
+                {texts.paragraph3}
               </p>
 
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                La mostra dei modelli è nata con l&apos;obiettivo di rendere{" "}
-                <strong>accessibili, tangibili e comprensibili</strong> alcuni dei
-                reperti più significativi conservati nei musei. Ogni modello è
-                stato realizzato con particolare attenzione all&apos;accessibilità
-                e alla multisensorialità.
+                {texts.paragraph4}
               </p>
             </div>
           </div>
@@ -94,7 +115,7 @@ export default function ProgettoMostraModelli() {
               <div className="bg-purple-100 dark:bg-purple-900 p-4 rounded-full group-hover:bg-purple-200 dark:group-hover:bg-purple-800 transition-colors">
                 <PlayCircle className="w-8 h-8 text-purple-600 dark:text-purple-400" />
               </div>
-              <span className="text-base font-semibold text-gray-900 dark:text-gray-100">Video in LIS</span>
+              <span className="text-base font-semibold text-gray-900 dark:text-gray-100">{texts.videoButton}</span>
               <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Lingua dei Segni</span>
             </button>
           </div>
@@ -106,23 +127,23 @@ export default function ProgettoMostraModelli() {
       <div className="max-w-4xl mx-auto space-y-6">
         <section className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-6 rounded-r-xl">
           <h2 className="font-bold text-xl text-blue-900 dark:text-blue-300 mb-4 flex items-center gap-2">
-            📅 Informazioni essenziali
+            📅 {texts.practicalInfo3Label}
           </h2>
           <dl className="space-y-3">
             <div>
               <dt className="font-semibold text-blue-900 dark:text-blue-300 inline">
-                Date di apertura:
+                {texts.dateLabel}
               </dt>
               <dd className="inline ml-2">
-                dall&apos;11 maggio 2025 al 3 maggio 2026
+                {texts.dateValue}
               </dd>
             </div>
             <div>
               <dt className="font-semibold text-blue-900 dark:text-blue-300 inline">
-                Ingresso:
+                {texts.entryLabel}
               </dt>
               <dd className="inline ml-2 text-gray-700 dark:text-gray-300">
-                gratuito per tutti fino all&apos;8 giugno 2025
+                {texts.entryValue}
               </dd>
             </div>
           </dl>
@@ -130,26 +151,25 @@ export default function ProgettoMostraModelli() {
         {/* Info pratiche */}
         <section className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
           <h2 className="font-bold text-xl text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-            🕐 Informazioni pratiche
+            🕐 {texts.practicalInfoTitle}
           </h2>
           <dl className="space-y-4">
             <div>
               <dt className="font-semibold text-gray-900 dark:text-gray-100">
-                Aperture:
+                {texts.practicalInfo1Label}
               </dt>
               <dd className="mt-1 text-gray-700 dark:text-gray-300">
-                Ogni domenica dall&apos;11 maggio al 3 giugno 2025, dalle 14:30 alle 18:30
+                {texts.practicalInfo1Value}
               </dd>
             </div>
             <div>
               <dt className="font-semibold text-gray-900 dark:text-gray-100">
-                Visite guidate gratuite:
+                {texts.practicalInfo2Label}
               </dt>
               <dd className="mt-2">
                 <ul className="ml-4 list-disc space-y-1 text-gray-700 dark:text-gray-300">
-                  <li>Disponibili nelle domeniche fino all&apos;8 giugno 2025</li>
-                  <li>Riprendono a settembre 2025</li>
-                  <li>Due turni: ore 15:00 e ore 17:00</li>
+                  <li>{texts.practicalInfo2Value}</li>
+                  
                 </ul>
               </dd>
             </div>
@@ -158,25 +178,20 @@ export default function ProgettoMostraModelli() {
         {/* Inclusione e accessibilità */}
         <section className="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 p-6 rounded-r-xl">
           <h2 className="font-bold text-xl text-green-800 dark:text-green-300 mb-4 flex items-center gap-2">
-            ♿ Inclusione e accessibilità
+             {texts.inclusionTitle}
           </h2>
           <p className="text-green-700 dark:text-green-200">
-            Il progetto si inserisce in un percorso più ampio di{" "}
-            <strong>inclusione culturale</strong>, promuovendo strumenti
-            visivi e tattili specificamente progettati per il pubblico con
-            disabilità.
+            {texts.inclusionText}
           </p>
         </section>
 
         {/* Contatti */}
         <section className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
           <h2 className="font-bold text-xl text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-            📞 Informazioni e prenotazioni
+             {texts.contactTitle}
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
-            Per informazioni dettagliate sulle visite guidate e
-            sull&apos;accessibilità, contattare il Museo Poleni
-            dell&apos;Università di Padova.
+            {texts.contactText}
           </p>
         </section>
       </div>
