@@ -215,7 +215,23 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
   const { i18n } = useTranslation('common');
   const videoRef = useRef(null);
   const announcementRef = useRef(null);
+  const [currentLang, setCurrentLang] = useState(null); // parte vuoto tutto finche non si pigia un bottone
 
+  const lingueDisponibili = [
+    { field: 'testo_lingua_1', bandiera: '🇮🇹', label: 'Italiano' },
+    { field: 'testo_lingua_2', bandiera: '🇬🇧', label: 'English' },
+    { field: 'testo_lingua_3', bandiera: '🇫🇷', label: 'Français' },
+    { field: 'testo_lingua_4', bandiera: '🇩🇪', label: 'Deutsch' },
+    { field: 'testo_lingua_5', bandiera: '🇪🇸', label: 'Español' },
+    { field: 'testo_lingua_6', bandiera: '🇳🇱', label: 'Nederlands' },
+    { field: 'testo_lingua_7', bandiera: 'ch', label: 'Chinese' },
+  ];
+  // Subito dopo la dichiarazione di lingueDisponibili, aggiungi:
+  useEffect(() => {
+    console.log('Approfondimento completo:', approfondimento);
+    console.log('Campo selezionato:', currentLang);
+    console.log('Valore del campo:', approfondimento?.[currentLang]);
+  }, [approfondimento, currentLang]);
 
   // Gestione client-side mounting
   useEffect(() => {
@@ -456,52 +472,98 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                       )}
                     </div>
 
-                    {/* Storia sociale + pdf ing- 2 bottoni */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {approfondimento?.approfondimento_url && (
-                        <a
-                          href={approfondimento.approfondimento_url}
-                          download={approfondimento.approfondimento_url.endsWith(".pdf") || approfondimento.approfondimento_url.endsWith(".docx")}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                          aria-describedby="caa-desc"
-                        >
-                          <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
-                            <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
-                          </div>
-                          <div className="text-left">
-                            <span className="block text-base font-semibold text-gray-900 dark:text-white">CAA</span>
-                            <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">Comunicazione Aumentativa</span>
-                          </div>
-                        </a>
-                      )}
+                    {/* Storia sociale + PDF inglese */}
+                    <section className="max-w-5xl mx-auto px-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* Bottone CAA */}
+                        {approfondimento?.approfondimento_url && (
+                          <a
+                            href={approfondimento.approfondimento_url}
+                            download={
+                              approfondimento.approfondimento_url.endsWith(".pdf") ||
+                              approfondimento.approfondimento_url.endsWith(".docx")
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+                            aria-describedby="caa-desc"
+                          >
+                            <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
+                              <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
+                            </div>
+                            <div className="text-left">
+                              <span className="block text-base font-semibold text-gray-900 dark:text-white">CAA</span>
+                              <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">
+                                Comunicazione Aumentativa
+                              </span>
+                            </div>
+                          </a>
+                        )}
 
-                      {approfondimento?.pdf_inglese_url && (
-                        <a
-                          href={approfondimento.pdf_inglese_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                          aria-describedby="pdf-eng-desc"
-                        >
-                          <div className="bg-amber-100 dark:bg-amber-900 p-3 rounded-lg group-hover:bg-amber-200 dark:group-hover:bg-amber-800 transition-colors">
-                            <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
-                          </div>
-                          <div className="text-left">
-                            <span className="block text-base font-semibold text-gray-900 dark:text-white">English PDF</span>
-                            <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">Apri versione inglese</span>
-                          </div>
-                        </a>
-                      )}
-                    </div>
+                        {/* Bottone PDF Inglese */}
+                        {approfondimento?.pdf_inglese_url && (
+                          <a
+                            href={approfondimento.pdf_inglese_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+                            aria-describedby="pdf-eng-desc"
+                          >
+                            <div className="bg-amber-100 dark:bg-amber-900 p-3 rounded-lg group-hover:bg-amber-200 dark:group-hover:bg-amber-800 transition-colors">
+                              <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+                            </div>
+                            <div className="text-left">
+                              <span className="block text-base font-semibold text-gray-900 dark:text-white">
+                                English PDF
+                              </span>
+                              <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">
+                                Apri versione inglese
+                              </span>
+                            </div>
+                          </a>
+                        )}
+                      </div>
+
+                      {/* === BOTTONI LINGUA (fuori dai link) === */}
+                      <div
+                        className="flex flex-wrap gap-2 mt-6"
+                        role="group"
+                        aria-label="Seleziona lingua testo reperto"
+                      >
+                        {lingueDisponibili.map((lang) => (
+                          <button
+                            key={lang.field}
+                            onClick={() => setCurrentLang(lang.field)}
+                            className={`px-3 py-2 rounded-full border text-sm font-medium transition-all ${currentLang === lang.field
+                              ? "bg-blue-600 text-white border-blue-600 shadow-lg scale-110"  // Più evidenza quando selezionato
+                              : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-105"
+                              }`}
+                            aria-label={`Cambia lingua in ${lang.label}`}
+                          >
+                            <span className="flex items-center gap-2">
+                              <span className="text-lg">{lang.bandiera}</span>
+                              {currentLang === lang.field && <span className="text-xs">✓</span>} {/* Check quando selezionato */}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                      {/* === TESTO SELEZIONATO === */}
+                      <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 mt-6 whitespace-pre-wrap">
+                        <p>
+                          {approfondimento
+                            ? approfondimento[currentLang] ||
+                            "⚠️ Testo non disponibile in questa lingua."
+                            : data.descrizione}
+                        </p>
+                      </div>
+                    </section>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Contenuto dettaglio */}
+          {/* Contenuto dettaglio - QUESTA SEZIONE VA FUORI DALLA HERO */}
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
             {/* Descrizione approfondita */}
@@ -555,9 +617,8 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                   />
                 </div>
                 <p id="video-description" className="text-sm text-gray-600 dark:text-gray-400 italic leading-relaxed">
-                  Questo video fornisce una descrizione completa del reperto &#34;
-                  {data.nome}&#34; in Lingua dei Segni Italiana,
-                  garantendo l&apos;accessibilità per le persone sorde e ipoudenti.
+                  Questo video fornisce una descrizione completa del reperto "{data.nome}" in Lingua dei Segni Italiana,
+                  garantendo l'accessibilità per le persone sorde e ipoudenti.
                 </p>
               </section>
             )}
@@ -573,47 +634,27 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                   Informazioni tecniche
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {repertiCollegati.map((rep, index) => (
-                    <div
-                      key={rep.id || index}
-                      className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-600 flex flex-col gap-3"
-                    >
-                      {rep.immagine && (
-                        <img
-                          src={rep.immagine}
-                          alt={rep.titolo || 'Reperto collegato'}
-                          className="w-full h-40 object-contain rounded-lg bg-white dark:bg-gray-800"
-                        />
-                      )}
-
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {rep.titolo}
-                      </h3>
-
-                      {rep.descrizione_breve && (
-                        <p className="text-sm text-gray-600 dark:text-gray-300">{rep.descrizione_breve}</p>
-                      )}
-
-                      {rep.audiodescrizione_url && (
-                        <button
-                          onClick={() => {
-                            setShowAudio(true);
-                            setAudioUrl(rep.audiodescrizione_url);
-                            setRepertoNome(rep.titolo);
-                          }}
-                          className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors min-h-[44px]"
-                          aria-label={`Ascolta audiodescrizione di ${rep.titolo}`}
-                        >
-                          <Volume2 className="w-4 h-4" />
-                          Ascolta audiodescrizione
-                        </button>
-                      )}
+                  {data.datazione && (
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
+                      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Datazione</h3>
+                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.datazione}</p>
                     </div>
-                  ))}
+                  )}
+                  {data.provenienza && (
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
+                      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Provenienza</h3>
+                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.provenienza}</p>
+                    </div>
+                  )}
+                  {data.materiale && (
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
+                      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Materiale</h3>
+                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.materiale}</p>
+                    </div>
+                  )}
                 </div>
               </section>
             )}
-
 
             {/* Altri reperti collegati */}
             {repertiCollegati && repertiCollegati.length > 0 && (
@@ -646,10 +687,11 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                       {rep.descrizione_breve && (
                         <p className="text-sm text-gray-600 dark:text-gray-300">{rep.descrizione_breve}</p>
                       )}
+
                       {rep.link_esterno && (
                         <Link
                           href={rep.link_esterno}
-                          className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors min-h-[44px] justify-center "
+                          className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors min-h-[44px] justify-center"
                         >
                           <span>🔗</span>
                           Vai al modello
@@ -675,7 +717,6 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                 </div>
               </section>
             )}
-
 
             {/* Navigazione reperti */}
             <section
