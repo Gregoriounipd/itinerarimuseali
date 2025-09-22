@@ -124,7 +124,7 @@ export default function Itinerario() {
     )
   }
 
- return (
+  return (
     <div className={`min-h-screen w-full ${theme.bg} ${isMostraModelli ? "bg-[url('/images/fondalecalendario.jpg')] bg-repeat bg-fixed" : ""}`}>
       {/* Skip link migliorato */}
       <a
@@ -259,21 +259,23 @@ export default function Itinerario() {
               className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto"
             >
               <AnimatePresence>
-                {reperti.map((reperto, index) => (
-                  <motion.div
-                    key={reperto.id}
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                  >
-                    <Link
-                      href={`/reperto/${reperto.slug}`}
-                      id={`card-${reperto.id}`}
-                      className={`group relative block ${theme.cardBg} rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border ${selectedRepertoId === reperto.id ? `ring-4 ${theme.ringColor} ring-offset-4 ring-offset-transparent` : ''}`}
-                      aria-label={`Scopri il reperto: ${reperto.nome}`}
+                {reperti
+                  .filter(reperto => !['Crani-frenologici', 'Modelli-di-foraminiferi'].includes(reperto.slug))
+                  .map((reperto, index) => (
+                    <motion.div
+                      key={reperto.id}
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ y: -8, transition: { duration: 0.3 } }}
                     >
+                      <Link
+                        href={`/reperto/${reperto.slug}`}
+                        id={`card-${reperto.id}`}
+                        className={`group relative block ${theme.cardBg} rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border ${selectedRepertoId === reperto.id ? `ring-4 ${theme.ringColor} ring-offset-4 ring-offset-transparent` : ''}`}
+                        aria-label={`Scopri il reperto: ${reperto.nome}`}
+                      >
                         {/* Badge selezionato */}
                         {selectedRepertoId === reperto.id && (
                           <motion.span
@@ -294,7 +296,7 @@ export default function Itinerario() {
                             loading="lazy"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                          
+
                           {/* Overlay con info quick */}
                           <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                             <span className="inline-block px-3 py-1 bg-white/90 text-gray-900 text-sm rounded-full backdrop-blur-sm">
@@ -311,7 +313,7 @@ export default function Itinerario() {
                           <p className={`text-sm leading-relaxed ${theme.textSecondary} line-clamp-3`}>
                             {reperto.descrizione}
                           </p>
-                          
+
                           {/* Freccia indicatrice */}
                           <div className="mt-4 flex justify-end">
                             <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -319,9 +321,10 @@ export default function Itinerario() {
                             </div>
                           </div>
                         </div>
-                    </Link>
-                  </motion.div>
-                ))}
+                      </Link>
+                    </motion.div>
+                  ))}
+
               </AnimatePresence>
             </div>
 

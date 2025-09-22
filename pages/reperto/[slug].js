@@ -25,7 +25,7 @@ const useDbTranslation = () => {
 
   const getDbText = (item, field) => {
     if (!item) return '';
- 
+
 
 
     // Se la lingua è inglese Ed esiste il campo tradotto, usa quello
@@ -33,12 +33,12 @@ const useDbTranslation = () => {
       return item[field];
     }
 
-   
+
     const currentLang = i18n.language; // 'it', 'en', 'es', ecc.
     const englishField = `${field}_eng`;
     const spanishField = `${field}_spa`;
 
-    
+
 
     if (currentLang === 'en' && item[englishField]) {
       return item[englishField]; // Usa il campo in inglese se esiste
@@ -46,8 +46,8 @@ const useDbTranslation = () => {
     if (currentLang === 'es' && item[spanishField]) {
       return item[spanishField]; // Usa il campo in spagnolo se esiste
     }
-return item[field]; 
-    
+    return item[field];
+
   };
 
   return { getDbText };
@@ -645,6 +645,15 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
 
                       {rep.descrizione_breve && (
                         <p className="text-sm text-gray-600 dark:text-gray-300">{rep.descrizione_breve}</p>
+                      )}
+                      {rep.link_esterno && (
+                        <Link
+                          href={rep.link_esterno}
+                          className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors min-h-[44px] justify-center "
+                        >
+                          <span>🔗</span>
+                          Vai al modello
+                        </Link>
                       )}
 
                       {rep.audiodescrizione_url && (
