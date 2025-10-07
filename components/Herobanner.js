@@ -59,7 +59,7 @@ export default function HeroBanner({ scrollToId }) {
           </h1>
           
           <p className="text-xl md:text-2xl text-white/80 font-light leading-relaxed max-w-3xl mx-auto">
-            Otto secoli di storia, cultura e ricerca scientifica.<br />
+            Ottoocento secoli di storia, cultura e ricerca scientifica.<br />
             Esplora le nostre collezioni attraverso percorsi virtuali accessibili.
           </p>
         </motion.div>
