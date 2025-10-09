@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Volume2, PlayCircle } from "lucide-react";
+import { Volume2, PlayCircle, BookOpen } from "lucide-react";
 import { useState } from "react";
 import { usePageTranslation } from "@/hooks/usePageTranslation";
 import { t } from "i18next";
@@ -8,28 +8,28 @@ export default function ProgettoMostraModelli() {
   const [showAudio, setShowAudio] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
 
-  const originalTexts={
-  title: "Il progetto della Mostra Modelli",
-  paragraph1: "Animali, piante, ponti, statue, fossili, macchine, minerali… tutto può essere modellizzato! I modelli hanno di fatto svolto un ruolo cruciale per lo sviluppo del sapere in svariati settori.",
-  paragraph2: "Si diffondono nelle università nel '700 e soprattutto nell'800. Li scoprirete nella nuova mostra temporanea del Museo Poleni, che vede per la prima volta esposti al pubblico modelli provenienti da vari musei e collezioni dell'Università di Padova.",
-  paragraph3: "Una mostra che svela anche pagine poco note della storia dell'ateneo e del territorio",
-  paragraph4: "La mostra dei modelli è nata con l'obiettivo di rendere accessibili, tangibili e comprensibili alcuni dei reperti più significativi conservati nei musei. Ogni modello è stato realizzato con particolare attenzione all'accessibilità e alla multisensorialità.",
-  dateLabel: "Date di apertura:",
-  dateValue: "dall'11 maggio 2025 al 3 maggio 2026",
-  entryLabel: "Ingresso:",
-  entryValue: "gratuito per tutti fino all'8 giugno 2025",
-  practicalInfoTitle: "🕐 Informazioni pratiche",
-  practicalInfo1Label: "Aperture:",
-  practicalInfo1Value: "Ogni domenica dall'11 maggio al 3 giugno 2025, dalle 14:30 alle 18:30",
-  practicalInfo2Label: "Visite guidate gratuite:",
-  practicalInfo2Value: "Disponibili nelle domeniche fino all'8 giugno 2025, Riprendono a settembre 2025, Due turni: ore 15:00 e ore 17:00",   
-  inclusionTitle: "♿ Inclusione e accessibilità",
-  inclusionText: "Il progetto si inserisce in un percorso più ampio di inclusione culturale, promuovendo strumenti visivi e tattili specificamente progettati per il pubblico con disabilità.",
-  contactTitle: "📞 Informazioni e prenotazioni",
-  contactText: "Per informazioni dettagliate sulle visite guidate e sull'accessibilità, contattare il Museo Poleni dell'Università di Padova.",
-  audioButton: "Audioguida",
-  videoButton: "Video in LIS",
-  practicalInfo3Label: "Informazioni essenziali",
+  const originalTexts = {
+    title: "Il progetto della Mostra Modelli",
+    paragraph1: "Animali, piante, ponti, statue, fossili, macchine, minerali… tutto può essere modellizzato! I modelli hanno di fatto svolto un ruolo cruciale per lo sviluppo del sapere in svariati settori.",
+    paragraph2: "Si diffondono nelle università nel '700 e soprattutto nell'800. Li scoprirete nella nuova mostra temporanea del Museo Poleni, che vede per la prima volta esposti al pubblico modelli provenienti da vari musei e collezioni dell'Università di Padova.",
+    paragraph3: "Una mostra che svela anche pagine poco note della storia dell'ateneo e del territorio",
+    paragraph4: "La mostra dei modelli è nata con l'obiettivo di rendere accessibili, tangibili e comprensibili alcuni dei reperti più significativi conservati nei musei. Ogni modello è stato realizzato con particolare attenzione all'accessibilità e alla multisensorialità.",
+    dateLabel: "Date di apertura:",
+    dateValue: "dall'11 maggio 2025 al 3 maggio 2026",
+    entryLabel: "Ingresso:",
+    entryValue: "gratuito per tutti fino all'8 giugno 2025",
+    practicalInfoTitle: "🕐 Informazioni pratiche",
+    practicalInfo1Label: "Aperture:",
+    practicalInfo1Value: "Ogni domenica dall'11 maggio al 3 giugno 2025, dalle 14:30 alle 18:30",
+    practicalInfo2Label: "Visite guidate gratuite:",
+    practicalInfo2Value: "Disponibili nelle domeniche fino all'8 giugno 2025, Riprendono a settembre 2025, Due turni: ore 15:00 e ore 17:00",
+    inclusionTitle: "♿ Inclusione e accessibilità",
+    inclusionText: "Il progetto si inserisce in un percorso più ampio di inclusione culturale, promuovendo strumenti visivi e tattili specificamente progettati per il pubblico con disabilità.",
+    contactTitle: "📞 Informazioni e prenotazioni",
+    contactText: "Per informazioni dettagliate sulle visite guidate e sull'accessibilità, contattare il Museo Poleni dell'Università di Padova.",
+    audioButton: "Audioguida",
+    videoButton: "Video in LIS",
+    practicalInfo3Label: "Informazioni essenziali",
   };
 
   const { texts, isTranslating } = usePageTranslation(originalTexts);
@@ -37,12 +37,12 @@ export default function ProgettoMostraModelli() {
   return (
     <article
       className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-         {isTranslating && (
+      {isTranslating && (
         <div className="fixed top-20 right-4 bg-blue-100 px-4 py-2 rounded-lg shadow z-50">
           Traduzione in corso...
         </div>
       )}
-      
+
       {/* BANNER INIZIALE */}
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 sm:py-12">
         <div className="flex justify-center mb-12">
@@ -67,6 +67,7 @@ export default function ProgettoMostraModelli() {
           <div className="lg:w-48 w-full lg:sticky lg:top-8">
             <button
               onClick={() => setShowAudio(true)}
+
               className="w-full group flex flex-col items-center gap-3 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600"
               aria-label="Ascolta l'audio descrizione per il funzionamento della Mostra Modelli"
             >
@@ -75,6 +76,36 @@ export default function ProgettoMostraModelli() {
               </div>
               <span className="text-base font-semibold text-gray-900 dark:text-gray-100">{texts.audioButton}</span>
               <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Ascolta la descrizione</span>
+            </button>
+
+            <button className="mt-6 w-full">
+
+              {/* Bottone storie sociali */}
+
+              <a
+                href={"https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/storie%20sociali/Storie%20Sociali%20Mostra%20Modelli.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzdG9yaWUgc29jaWFsaS9TdG9yaWUgU29jaWFsaSBNb3N0cmEgTW9kZWxsaS5wZGYiLCJpYXQiOjE3NTk4MzQ1MjcsImV4cCI6NDkxMzQzNDUyN30.1aAt4pq4AyNOfPj7k3oRxZInu6LjWrqeJFCbtdAYjoc"}
+                download={
+                  "https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/storie%20sociali/Storie%20Sociali%20Mostra%20Modelli.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzdG9yaWUgc29jaWFsaS9TdG9yaWUgU29jaWFsaSBNb3N0cmEgTW9kZWxsaS5wZGYiLCJpYXQiOjE3NTk4MzQ1MjcsImV4cCI6NDkxMzQzNDUyN30.1aAt4pq4AyNOfPj7k3oRxZInu6LjWrqeJFCbtdAYjoc"
+
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center g
+              ap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+                aria-describedby="caa-desc"
+              >
+                <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
+                  <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
+                </div>
+                <div className="text-left">
+                  <span className="block text-base font-semibold text-gray-900 dark:text-white">Storie Sociali</span>
+                  <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">
+                    Della Mostra Modelli
+                  </span>
+
+                </div>
+              </a>
+
             </button>
           </div>
 
@@ -116,12 +147,38 @@ export default function ProgettoMostraModelli() {
                 <PlayCircle className="w-8 h-8 text-purple-600 dark:text-purple-400" />
               </div>
               <span className="text-base font-semibold text-gray-900 dark:text-gray-100">{texts.videoButton}</span>
-              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Lingua dei Segni</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Con Sottotitoli In Italiano</span>
             </button>
+
+
+
+            {/* Bottone easy to read  */}
+
+            <a
+              href={"https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/easy%20to%20read/ETR_Guida_Mostra.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJlYXN5IHRvIHJlYWQvRVRSX0d1aWRhX01vc3RyYS5wZGYiLCJpYXQiOjE3NTk4MzUyNjEsImV4cCI6NDkxMzQzNTI2MX0.1b3f13ZOQ9u2Gqae4tIG-FdzVjYacEkUgc3gKHjQZpw"}
+              download={"https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/easy%20to%20read/ETR_Guida_Mostra.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJlYXN5IHRvIHJlYWQvRVRSX0d1aWRhX01vc3RyYS5wZGYiLCJpYXQiOjE3NTk4MzUyNjEsImV4cCI6NDkxMzQzNTI2MX0.1b3f13ZOQ9u2Gqae4tIG-FdzVjYacEkUgc3gKHjQZpw"
+
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+              aria-describedby="caa-desc"
+            >
+              <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
+                <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
+              </div>
+              <div className="text-left">
+                <span className="block text-base font-semibold text-gray-900 dark:text-white">Guida Sociale</span>
+                <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">
+                  easy to read
+                </span>
+              </div>
+            </a>
           </div>
 
         </div>
       </div>
+
 
       {/* INFORMAZIONI MOSTRA */}
       <div className="max-w-4xl mx-auto space-y-6">
@@ -169,7 +226,7 @@ export default function ProgettoMostraModelli() {
               <dd className="mt-2">
                 <ul className="ml-4 list-disc space-y-1 text-gray-700 dark:text-gray-300">
                   <li>{texts.practicalInfo2Value}</li>
-                  
+
                 </ul>
               </dd>
             </div>
@@ -178,7 +235,7 @@ export default function ProgettoMostraModelli() {
         {/* Inclusione e accessibilità */}
         <section className="bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 p-6 rounded-r-xl">
           <h2 className="font-bold text-xl text-green-800 dark:text-green-300 mb-4 flex items-center gap-2">
-             {texts.inclusionTitle}
+            {texts.inclusionTitle}
           </h2>
           <p className="text-green-700 dark:text-green-200">
             {texts.inclusionText}
@@ -188,7 +245,7 @@ export default function ProgettoMostraModelli() {
         {/* Contatti */}
         <section className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
           <h2 className="font-bold text-xl text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
-             {texts.contactTitle}
+            {texts.contactTitle}
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
             {texts.contactText}

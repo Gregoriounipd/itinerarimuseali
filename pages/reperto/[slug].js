@@ -502,25 +502,25 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
 
                         {/* Bottone PDF Inglese */}
                         {approfondimento?.pdf_inglese_url && (
-                          <a
-                            href={approfondimento.pdf_inglese_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                            aria-describedby="pdf-eng-desc"
-                          >
-                            <div className="bg-amber-100 dark:bg-amber-900 p-3 rounded-lg group-hover:bg-amber-200 dark:group-hover:bg-amber-800 transition-colors">
-                              <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
-                            </div>
-                            <div className="text-left">
-                              <span className="block text-base font-semibold text-gray-900 dark:text-white">
-                                English PDF
-                              </span>
-                              <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">
-                                Apri versione inglese
-                              </span>
-                            </div>
-                          </a>
+                        <a
+                          href={approfondimento.pdf_inglese_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
+                          aria-describedby="pdf-eng-desc"
+                        >
+                          <div className="bg-amber-100 dark:bg-amber-900 p-3 rounded-lg group-hover:bg-amber-200 dark:group-hover:bg-amber-800 transition-colors">
+                            <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+                          </div>
+                          <div className="text-left">
+                            <span className="block text-base font-semibold text-gray-900 dark:text-white">
+                              English PDF
+                            </span>
+                            <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">
+                              Apri versione inglese
+                            </span>
+                          </div>
+                        </a>
                         )}
                       </div>
 
