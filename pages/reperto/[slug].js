@@ -220,7 +220,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
   const lingueDisponibili = [
     { field: 'arabo', iso: 'ARA', label: 'Arabo' },
     { field: 'cinese', iso: 'CHI', label: 'Cinese' },
-    { field: 'inglse', iso: 'ENG', label: 'English' },
+    { field: 'inglese', iso: 'ENG', label: 'English' },
     { field: 'hindi', iso: 'HIN', label: 'Hindi' },
     { field: 'persiano', iso: 'PER', label: 'Persiano' },
     { field: 'spagnolo', iso: 'SPA', label: 'Español' },
@@ -529,10 +529,13 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                       {/* === TESTO SELEZIONATO === */}
                       <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 mt-6 whitespace-pre-wrap">
                         <p>
-                          {approfondimento
-                            ? approfondimento[currentLang] ||
-                            "⚠️ Testo non disponibile in questa lingua."
-                            : data.descrizione}
+                          {!currentLang
+                            ? "Seleziona una lingua per visualizzare il testo"
+                            : (approfondimento?.[currentLang]?.includes('.pdf')
+                              ? "📄 PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
+                              : approfondimento?.[currentLang] || "⚠️ Testo non disponibile in questa lingua."
+                            )
+                          }
                         </p>
                       </div>
                     </section>
