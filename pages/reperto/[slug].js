@@ -530,10 +530,20 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                       <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 mt-6 whitespace-pre-wrap">
                         <p>
                           {!currentLang
-                            ? "Seleziona una lingua per visualizzare il testo"
+                            ? (i18n.language === 'en'
+                              ? "Select a language to view the text"
+                              : "Seleziona una lingua per visualizzare il testo"
+                            )
                             : (approfondimento?.[currentLang]?.includes('.pdf')
-                              ? "📄 PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
-                              : approfondimento?.[currentLang] || "⚠️ Testo non disponibile in questa lingua."
+                              ? (i18n.language === 'en'
+                                ? "📄 PDF available - Click the language button to open it"
+                                : "📄 PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
+                              )
+                              : approfondimento?.[currentLang] ||
+                              (i18n.language === 'en'
+                                ? "⚠️ Text not available in this language"
+                                : "⚠️ Testo non disponibile in questa lingua"
+                              )
                             )
                           }
                         </p>
