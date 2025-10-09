@@ -218,13 +218,13 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
   const [currentLang, setCurrentLang] = useState(null); // parte vuoto tutto finche non si pigia un bottone
 
   const lingueDisponibili = [
-    { field: 'testo_lingua_1', bandiera: '🇮🇹', label: 'Italiano' },
-    { field: 'testo_lingua_2', bandiera: '🇬🇧', label: 'English' },
-    { field: 'testo_lingua_3', bandiera: '🇫🇷', label: 'Français' },
-    { field: 'testo_lingua_4', bandiera: '🇩🇪', label: 'Deutsch' },
-    { field: 'testo_lingua_5', bandiera: '🇪🇸', label: 'Español' },
-    { field: 'testo_lingua_6', bandiera: '🇳🇱', label: 'Nederlands' },
-    { field: 'testo_lingua_7', bandiera: 'ch', label: 'Chinese' },
+    { field: 'arabo', iso: 'ARA', label: 'Arabo' },
+    { field: 'cinese', iso: 'CHI', label: 'Cinese' },
+    { field: 'inglse', iso: 'ENG', label: 'English' },
+    { field: 'hindi', iso: 'HIN', label: 'Hindi' },
+    { field: 'persiano', iso: 'PER', label: 'Persiano' },
+    { field: 'spagnolo', iso: 'SPA', label: 'Español' },
+    { field: 'urdu', iso: 'URD', label: 'Urdu' },
   ];
   // Subito dopo la dichiarazione di lingueDisponibili, aggiungi:
   useEffect(() => {
@@ -520,9 +520,8 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                               }`}
                           >
                             <span className="flex items-center gap-2">
-                              <span className="text-lg">{lang.bandiera}</span>
+                              <span className="font-mono font-bold text-base">{lang.iso}</span>
                               {currentLang === lang.field && <span>✓</span>}
-                              {approfondimento?.[lang.field]?.includes('.pdf') && <span className="text-xs">📄</span>}
                             </span>
                           </button>
                         ))}
