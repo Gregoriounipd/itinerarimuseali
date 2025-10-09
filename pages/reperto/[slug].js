@@ -532,17 +532,23 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                           {!currentLang
                             ? (i18n.language === 'en'
                               ? "Select a language to view the text"
-                              : "Seleziona una lingua per visualizzare il testo"
+                              : i18n.language === 'es'
+                                ? "Selecciona un idioma para ver el texto"
+                                : "Seleziona una lingua per visualizzare il testo"
                             )
                             : (approfondimento?.[currentLang]?.includes('.pdf')
                               ? (i18n.language === 'en'
                                 ? "📄 PDF available - Click the language button to open it"
-                                : "📄 PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
+                                : i18n.language === 'es'
+                                  ? "📄 PDF disponible - Haz clic en el botón del idioma para abrirlo"
+                                  : "📄 PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
                               )
                               : approfondimento?.[currentLang] ||
                               (i18n.language === 'en'
                                 ? "⚠️ Text not available in this language"
-                                : "⚠️ Testo non disponibile in questa lingua"
+                                : i18n.language === 'es'
+                                  ? "⚠️ Texto no disponible en este idioma"
+                                  : "⚠️ Testo non disponibile in questa lingua"
                               )
                             )
                           }
