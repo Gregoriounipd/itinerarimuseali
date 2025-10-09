@@ -472,7 +472,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                       )}
                     </div>
 
-                    {/* Storia sociale + PDF inglese */}
+                    {/* Storia sociale */}
                     <section className="max-w-5xl mx-auto px-4">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* Bottone CAA */}
@@ -500,49 +500,29 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                           </a>
                         )}
 
-                        {/* Bottone PDF Inglese */}
-                        {approfondimento?.pdf_inglese_url && (
-                        <a
-                          href={approfondimento.pdf_inglese_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                          aria-describedby="pdf-eng-desc"
-                        >
-                          <div className="bg-amber-100 dark:bg-amber-900 p-3 rounded-lg group-hover:bg-amber-200 dark:group-hover:bg-amber-800 transition-colors">
-                            <BookOpen className="w-6 h-6 text-amber-600 dark:text-amber-400" />
-                          </div>
-                          <div className="text-left">
-                            <span className="block text-base font-semibold text-gray-900 dark:text-white">
-                              English PDF
-                            </span>
-                            <span id="pdf-eng-desc" className="block text-sm text-gray-500 dark:text-gray-400">
-                              Apri versione inglese
-                            </span>
-                          </div>
-                        </a>
-                        )}
-                      </div>
 
-                      {/* === BOTTONI LINGUA (fuori dai link) === */}
-                      <div
-                        className="flex flex-wrap gap-2 mt-6"
-                        role="group"
-                        aria-label="Seleziona lingua testo reperto"
-                      >
+                      </div>
+                      {/* === BOTTONI LINGUA === */}
+                      <div className="flex flex-wrap gap-2 mt-6" role="group" aria-label="Seleziona lingua">
                         {lingueDisponibili.map((lang) => (
                           <button
                             key={lang.field}
-                            onClick={() => setCurrentLang(lang.field)}
+                            onClick={() => {
+                              setCurrentLang(lang.field);
+                              // Se nella casella c'è un link PDF, aprilo
+                              if (approfondimento?.[lang.field]?.includes('.pdf')) {
+                                window.open(approfondimento[lang.field], '_blank');
+                              }
+                            }}
                             className={`px-3 py-2 rounded-full border text-sm font-medium transition-all ${currentLang === lang.field
-                              ? "bg-blue-600 text-white border-blue-600 shadow-lg scale-110"  // Più evidenza quando selezionato
-                              : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-105"
+                              ? "bg-blue-600 text-white border-blue-600 shadow-lg"
+                              : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
                               }`}
-                            aria-label={`Cambia lingua in ${lang.label}`}
                           >
                             <span className="flex items-center gap-2">
                               <span className="text-lg">{lang.bandiera}</span>
-                              {currentLang === lang.field && <span className="text-xs">✓</span>} {/* Check quando selezionato */}
+                              {currentLang === lang.field && <span>✓</span>}
+                              {approfondimento?.[lang.field]?.includes('.pdf') && <span className="text-xs">📄</span>}
                             </span>
                           </button>
                         ))}
