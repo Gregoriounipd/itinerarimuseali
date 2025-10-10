@@ -5,6 +5,24 @@ import { ChevronLeft, Volume2, PlayCircle, BookOpen, X, Moon, Sun } from 'lucide
 import Link from 'next/link';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
+// Componente per formattare il testo con Markdown
+const FormattedText = ({ text, className = "" }) => {
+  if (!text) return null;
+  
+  // Sostituisci ||| con <br/> per andare a capo
+  const formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **grassetto**
+    .replace(/\*(.*?)\*/g, '<em>$1</em>') // *corsivo*
+    .replace(/\|\|\|/g, '<br/>'); // ||| = a capo
+
+  return (
+    <div 
+      className={className}
+      dangerouslySetInnerHTML={{ __html: formattedText }}
+    />
+  );
+};
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -425,10 +443,10 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                         </span>
                       </div>
                     )}
+                    <div className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
+                      <FormattedText text={getDbText(data, 'descrizione')} />
+                    </div>
 
-                    <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
-                      {getDbText(data, 'descrizione')}
-                    </p>
                   </header>
 
                   {/* Pulsanti accessibilità */}
@@ -494,7 +512,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                             <div className="text-left">
                               <span className="block text-base font-semibold text-gray-900 dark:text-white">CAA</span>
                               <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">
-                                Comunicazione Aumentativa
+                                Comunicazione Aumentativa Alternativa
                               </span>
                             </div>
                           </a>
@@ -527,32 +545,31 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                         ))}
                       </div>
                       {/* === TESTO SELEZIONATO === */}
-                      <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 mt-6 whitespace-pre-wrap">
-                        <p>
-                          {!currentLang
+                      <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 mt-6">
+                        {!currentLang
+                          ? (i18n.language === 'en'
+                            ? "Select a language to view the text"
+                            : i18n.language === 'es'
+                              ? "Selecciona un idioma para ver el texto"
+                              : "Seleziona una lingua per visualizzare il testo"
+                          )
+                          : (approfondimento?.[currentLang]?.includes('.pdf')
                             ? (i18n.language === 'en'
-                              ? "Select a language to view the text"
+                              ? "📄 PDF available - Click the language button to open it"
                               : i18n.language === 'es'
-                                ? "Selecciona un idioma para ver el texto"
-                                : "Seleziona una lingua per visualizzare il testo"
+                                ? "📄 PDF disponible - Haz clic en el botón del idioma para abrirlo"
+                                : "📄 PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
                             )
-                            : (approfondimento?.[currentLang]?.includes('.pdf')
-                              ? (i18n.language === 'en'
-                                ? "📄 PDF available - Click the language button to open it"
-                                : i18n.language === 'es'
-                                  ? "📄 PDF disponible - Haz clic en el botón del idioma para abrirlo"
-                                  : "📄 PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
-                              )
-                              : approfondimento?.[currentLang] ||
-                              (i18n.language === 'en'
+                            : approfondimento?.[currentLang]
+                              ? <FormattedText text={approfondimento[currentLang]} />
+                              : (i18n.language === 'en'
                                 ? "⚠️ Text not available in this language"
                                 : i18n.language === 'es'
                                   ? "⚠️ Texto no disponible en este idioma"
                                   : "⚠️ Testo non disponibile in questa lingua"
                               )
-                            )
-                          }
-                        </p>
+                          )
+                        }
                       </div>
                     </section>
                   </div>
@@ -575,9 +592,10 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                   {getDbText(approfondimento, 'testo_breve') || 'Descrizione dettagliata'}
                 </h2>
                 <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
-                  <p className="leading-relaxed text-lg">
-                    {getDbText(approfondimento, 'testo_lungo') || data.descrizione}
-                  </p>
+                  <FormattedText
+                    text={getDbText(approfondimento, 'testo_lungo') || data.descrizione}
+                    className="leading-relaxed text-lg"
+                  />
                 </div>
               </section>
             )}
@@ -635,19 +653,25 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                   {data.datazione && (
                     <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
                       <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Datazione</h3>
-                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.datazione}</p>
+                      <div className="text-lg font-medium text-gray-900 dark:text-white">
+                        <FormattedText text={data.datazione} />
+                      </div>
                     </div>
                   )}
                   {data.provenienza && (
                     <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
                       <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Provenienza</h3>
-                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.provenienza}</p>
+                      <div className="text-lg font-medium text-gray-900 dark:text-white">
+                        <FormattedText text={data.provenienza} />
+                      </div>
                     </div>
                   )}
                   {data.materiale && (
                     <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-600">
                       <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Materiale</h3>
-                      <p className="text-lg font-medium text-gray-900 dark:text-white">{data.materiale}</p>
+                      <div className="text-lg font-medium text-gray-900 dark:text-white">
+                        <FormattedText text={data.materiale} />
+                      </div>
                     </div>
                   )}
                 </div>
