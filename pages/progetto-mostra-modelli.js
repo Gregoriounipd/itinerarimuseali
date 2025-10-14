@@ -232,28 +232,28 @@ export default function ProgettoMostraModelli() {
         </section>
       </div>
 
-     {/*MOdale audio */}
-{
-  showAudio && (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full p-6 relative">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-          Audioguida Progetto Mostra Modelli
-        </h3>
-        <audio controls className="w-full mb-4">
-          <source src="https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/public/audio_mp4/0.0%20introduzione.mp3" type="audio/mpeg" />
-          Il tuo browser non supporta l'elemento audio.
-        </audio>
-        <button
-          onClick={() => setShowAudio(false)}
-          className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Chiudi
-        </button>
-      </div>
-    </div>
-  )
-}
+      {/*MOdale audio */}
+      {
+        showAudio && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full p-6 relative">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                Audioguida Progetto Mostra Modelli
+              </h3>
+              <audio controls className="w-full mb-4">
+                <source src="https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/public/audio_mp4/0.0%20introduzione.mp3" type="audio/mpeg" />
+                Il tuo browser non supporta l'elemento audio.
+              </audio>
+              <button
+                onClick={() => setShowAudio(false)}
+                className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Chiudi
+              </button>
+            </div>
+          </div>
+        )
+      }
 
       {/*MOdale video*/}
       {
@@ -266,7 +266,7 @@ export default function ProgettoMostraModelli() {
               <div className="aspect-video bg-black rounded-lg mb-4">
                 <iframe
                   className="w-full h-full rounded-lg"
-                  src="https://www.youtube.com/embed/jNQXAC9IVRw" // Sostituisci con l'ID del tuo video 
+                  src="https://www.youtube.com/embed/VB_4ag9dp-8"
                   title="Video in Lingua dei Segni Italiana (LIS)"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
