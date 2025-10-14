@@ -1,22 +1,32 @@
 import Image from "next/image";
 import { Volume2, PlayCircle, BookOpen } from "lucide-react";
-import { useState } from "react";
+
 import { usePageTranslation } from "@/hooks/usePageTranslation";
 import { t } from "i18next";
+import { useState, useEffect } from "react";
+
 // Componente per formattare il testo con a capo
 const FormattedText = ({ text, className = "" }) => {
-  if (!text) return null;
+  const [formattedHtml, setFormattedHtml] = useState("");
 
-  // Sostituisci ||| con <br/> per andare a capo
-  const formattedText = text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **grassetto**
-    .replace(/\*(.*?)\*/g, '<em>$1</em>') // *corsivo*
-    .replace(/\|\|\|/g, '<br/>'); // ||| = a capo
+  useEffect(() => {
+    if (!text) return;
+
+    // Sostituisci ||| con <br/> per andare a capo
+    const formatted = text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **grassetto**
+      .replace(/\*(.*?)\*/g, '<em>$1</em>') // *corsivo*
+      .replace(/\|\|\|/g, '<br/>'); // ||| = a capo
+
+    setFormattedHtml(formatted);
+  }, [text]);
+
+  if (!formattedHtml) return null;
 
   return (
     <div
       className={className}
-      dangerouslySetInnerHTML={{ __html: formattedText }}
+      dangerouslySetInnerHTML={{ __html: formattedHtml }}
     />
   );
 };
@@ -162,15 +172,7 @@ export default function ProgettoMostraModelli() {
           </div>
         </div>
       </div>
-      {/* PULSANTE TORNA INDIETRO */}
-      <div className="max-w-4xl mx-auto mb-8 text-center">
-        <a
-          href="/mostra-modelli"
-          className="inline-flex items-center gap-2 bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
-        >
-          ← Torna alla Mostra Modelli
-        </a>
-      </div>
+
       {/* INFORMAZIONI MOSTRA */}
       <div className="max-w-4xl mx-auto space-y-6">
         <section className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-6 rounded-r-xl">
