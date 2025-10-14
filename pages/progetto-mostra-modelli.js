@@ -3,7 +3,23 @@ import { Volume2, PlayCircle, BookOpen } from "lucide-react";
 import { useState } from "react";
 import { usePageTranslation } from "@/hooks/usePageTranslation";
 import { t } from "i18next";
+// Componente per formattare il testo con a capo
+const FormattedText = ({ text, className = "" }) => {
+  if (!text) return null;
 
+  // Sostituisci ||| con <br/> per andare a capo
+  const formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **grassetto**
+    .replace(/\*(.*?)\*/g, '<em>$1</em>') // *corsivo*
+    .replace(/\|\|\|/g, '<br/>'); // ||| = a capo
+
+  return (
+    <div
+      className={className}
+      dangerouslySetInnerHTML={{ __html: formattedText }}
+    />
+  );
+};
 export default function ProgettoMostraModelli() {
   const [showAudio, setShowAudio] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
@@ -61,10 +77,10 @@ export default function ProgettoMostraModelli() {
 
       {/* SEZIONE CON I BOTTONI LATERALI E TESTO CENTRALE */}
       <div className="max-w-6xl mx-auto mb-16">
-        <div className="flex flex-col lg:flex-row items-start gap-6">
+        <div className="flex flex-col lg:flex-row items-start gap-8">
 
-          {/* BOTTONE AUDIOGUIDA A SINISTRA */}
-          <div className="lg:w-48 w-full lg:sticky lg:top-8">
+          {/* COLONNA SINISTRA - 2 BOTTONI */}
+          <div className="lg:w-48 w-full lg:sticky lg:top-8 space-y-4">
             <button
               onClick={() => setShowAudio(true)}
 
@@ -78,66 +94,47 @@ export default function ProgettoMostraModelli() {
               <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Ascolta la descrizione</span>
             </button>
 
-            <button className="mt-6 w-full">
-
-              {/* Bottone storie sociali */}
-
-              <a
-                href={"https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/storie%20sociali/Storie%20Sociali%20Mostra%20Modelli.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzdG9yaWUgc29jaWFsaS9TdG9yaWUgU29jaWFsaSBNb3N0cmEgTW9kZWxsaS5wZGYiLCJpYXQiOjE3NTk4MzQ1MjcsImV4cCI6NDkxMzQzNDUyN30.1aAt4pq4AyNOfPj7k3oRxZInu6LjWrqeJFCbtdAYjoc"}
-                download={
-                  "https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/storie%20sociali/Storie%20Sociali%20Mostra%20Modelli.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzdG9yaWUgc29jaWFsaS9TdG9yaWUgU29jaWFsaSBNb3N0cmEgTW9kZWxsaS5wZGYiLCJpYXQiOjE3NTk4MzQ1MjcsImV4cCI6NDkxMzQzNDUyN30.1aAt4pq4AyNOfPj7k3oRxZInu6LjWrqeJFCbtdAYjoc"
-
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center g
-              ap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-                aria-describedby="caa-desc"
-              >
-                <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
-                  <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
-                </div>
-                <div className="text-left">
-                  <span className="block text-base font-semibold text-gray-900 dark:text-white">Storie Sociali</span>
-                  <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">
-                    Della Mostra Modelli
-                  </span>
-
-                </div>
-              </a>
-
-            </button>
+            <a
+              href={"https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/storie%20sociali/Storie%20Sociali%20Mostra%20Modelli.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJzdG9yaWUgc29jaWFsaS9TdG9yaWUgU29jaWFsaSBNb3N0cmEgTW9kZWxsaS5wZGYiLCJpYXQiOjE3NTk4MzQ1MjcsImV4cCI6NDkxMzQzNDUyN30.1aAt4pq4AyNOfPj7k3oRxZInu6LjWrqeJFCbtdAYjoc"}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full group flex flex-col items-center gap-3 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600"
+            >
+              <div className="bg-green-100 dark:bg-green-900 p-4 rounded-full group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
+                <BookOpen className="w-8 h-8 text-green-600 dark:text-green-400" />
+              </div>
+              <span className="text-base font-semibold text-gray-900 dark:text-gray-100">Storie Sociali</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Della Mostra Modelli</span>
+            </a>
           </div>
-
-
           {/* TESTO CENTRALE */}
-
           <div className="flex-1 bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-8 border border-gray-200 dark:border-gray-700">
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-8 text-center">
               {texts.title}
             </h1>
 
             <div className="prose prose-lg max-w-none dark:prose-invert">
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                {texts.paragraph1}
-              </p>
+              <div className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                <FormattedText text={texts.paragraph1} />
+              </div>
 
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                {texts.paragraph2}
-              </p>
+              <div className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                <FormattedText text={texts.paragraph2} />
+              </div>
 
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                {texts.paragraph3}
-              </p>
+              <div className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+                <FormattedText text={texts.paragraph3} />
+              </div>
 
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {texts.paragraph4}
-              </p>
+              <div className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <FormattedText text={texts.paragraph4} />
+              </div>
             </div>
           </div>
 
-          {/* BOTTONE VIDEO LIS A DESTRA */}
-          <div className="lg:w-48 w-full lg:sticky lg:top-8">
+          {/* COLONNA DESTRA - 2 BOTTONI */}
+          <div className="lg:w-48 w-full lg:sticky lg:top-8 space-y-4">
             <button
               onClick={() => setShowVideo(true)}
               className="w-full group flex flex-col items-center gap-3 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600"
@@ -149,37 +146,22 @@ export default function ProgettoMostraModelli() {
               <span className="text-base font-semibold text-gray-900 dark:text-gray-100">{texts.videoButton}</span>
               <span className="text-sm text-gray-500 dark:text-gray-400 text-center">Con Sottotitoli In Italiano</span>
             </button>
-
-
-
-            {/* Bottone easy to read  */}
-
             <a
               href={"https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/easy%20to%20read/ETR_Guida_Mostra.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJlYXN5IHRvIHJlYWQvRVRSX0d1aWRhX01vc3RyYS5wZGYiLCJpYXQiOjE3NTk4MzUyNjEsImV4cCI6NDkxMzQzNTI2MX0.1b3f13ZOQ9u2Gqae4tIG-FdzVjYacEkUgc3gKHjQZpw"}
-              download={"https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/sign/easy%20to%20read/ETR_Guida_Mostra.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jZWFhNjQ3Zi0wOTM1LTQ1YjQtYWJjMy02NDQxMjk2OTlkN2YiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJlYXN5IHRvIHJlYWQvRVRSX0d1aWRhX01vc3RyYS5wZGYiLCJpYXQiOjE3NTk4MzUyNjEsImV4cCI6NDkxMzQzNTI2MX0.1b3f13ZOQ9u2Gqae4tIG-FdzVjYacEkUgc3gKHjQZpw"
-
-              }
+              download
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600 min-h-[64px]"
-              aria-describedby="caa-desc"
+              className="w-full group flex flex-col items-center gap-3 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-600"
             >
-              <div className="bg-green-100 dark:bg-green-900 p-3 rounded-lg group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
-                <BookOpen className="w-6 h-6 text-green-600 dark:text-green-400" />
+              <div className="bg-amber-100 dark:bg-amber-900 p-4 rounded-full group-hover:bg-amber-200 dark:group-hover:bg-amber-800 transition-colors">
+                <BookOpen className="w-8 h-8 text-amber-600 dark:text-amber-400" />
               </div>
-              <div className="text-left">
-                <span className="block text-base font-semibold text-gray-900 dark:text-white">Guida Sociale</span>
-                <span id="caa-desc" className="block text-sm text-gray-500 dark:text-gray-400">
-                  easy to read
-                </span>
-              </div>
+              <span className="text-base font-semibold text-gray-900 dark:text-gray-100">Guida Sociale</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400 text-center">easy to read</span>
             </a>
           </div>
-
         </div>
       </div>
-
-
       {/* INFORMAZIONI MOSTRA */}
       <div className="max-w-4xl mx-auto space-y-6">
         <section className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-6 rounded-r-xl">
@@ -189,18 +171,18 @@ export default function ProgettoMostraModelli() {
           <dl className="space-y-3">
             <div>
               <dt className="font-semibold text-blue-900 dark:text-blue-300 inline">
-                {texts.dateLabel}
+                <FormattedText text={texts.dateLabel} />
               </dt>
               <dd className="inline ml-2">
-                {texts.dateValue}
+                <FormattedText text={texts.dateValue} />
               </dd>
             </div>
             <div>
               <dt className="font-semibold text-blue-900 dark:text-blue-300 inline">
-                {texts.entryLabel}
+                <FormattedText text={texts.entryLabel} />
               </dt>
               <dd className="inline ml-2 text-gray-700 dark:text-gray-300">
-                {texts.entryValue}
+                <FormattedText text={texts.entryValue} />
               </dd>
             </div>
           </dl>
@@ -213,21 +195,18 @@ export default function ProgettoMostraModelli() {
           <dl className="space-y-4">
             <div>
               <dt className="font-semibold text-gray-900 dark:text-gray-100">
-                {texts.practicalInfo1Label}
+                <FormattedText text={texts.practicalInfo1Label} />
               </dt>
               <dd className="mt-1 text-gray-700 dark:text-gray-300">
-                {texts.practicalInfo1Value}
+                <FormattedText text={texts.practicalInfo1Value} />
               </dd>
             </div>
             <div>
               <dt className="font-semibold text-gray-900 dark:text-gray-100">
-                {texts.practicalInfo2Label}
+                <FormattedText text={texts.practicalInfo2Label} />
               </dt>
-              <dd className="mt-2">
-                <ul className="ml-4 list-disc space-y-1 text-gray-700 dark:text-gray-300">
-                  <li>{texts.practicalInfo2Value}</li>
-
-                </ul>
+              <dd className="mt-2 text-gray-700 dark:text-gray-300">
+                <FormattedText text={texts.practicalInfo2Value} />
               </dd>
             </div>
           </dl>
@@ -238,7 +217,7 @@ export default function ProgettoMostraModelli() {
             {texts.inclusionTitle}
           </h2>
           <p className="text-green-700 dark:text-green-200">
-            {texts.inclusionText}
+            <FormattedText text={texts.inclusionText} />
           </p>
         </section>
 
@@ -253,53 +232,57 @@ export default function ProgettoMostraModelli() {
         </section>
       </div>
 
-      {/*MOdale audio */}
-      {showAudio && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full p-6 relative">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Audioguida Progetto Mostra Modelli
-            </h3>
-            <audio controls className="w-full mb-4">
-              <source src="/audio/audioguida-mostra-modelli.mp3" type="audio/mpeg" />
-              Il tuo browser non supporta l&apos;elemento audio.
-            </audio>
-            <button
-              onClick={() => setShowAudio(false)}
-              className="w-full px-4 py-3 bg-blue-60 text-white rounded-lg hover:bg-blue-700"
-            >
-              Chiudi
-            </button>
-          </div>
-        </div>
-      )}
+     {/*MOdale audio */}
+{
+  showAudio && (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full p-6 relative">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+          Audioguida Progetto Mostra Modelli
+        </h3>
+        <audio controls className="w-full mb-4">
+          <source src="https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/public/audio_mp4/0.0%20introduzione.mp3" type="audio/mpeg" />
+          Il tuo browser non supporta l'elemento audio.
+        </audio>
+        <button
+          onClick={() => setShowAudio(false)}
+          className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
+          Chiudi
+        </button>
+      </div>
+    </div>
+  )
+}
 
       {/*MOdale video*/}
-      {showVideo && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-2xl">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Video in Lingua dei Segni Italiana (LIS)
-            </h3>
-            <div className="aspect-video bg-black rounded-lg mb-4">
-              <iframe
-                className="w-full h-full rounded-lg"
-                src="https://www.youtube.com/embed/jNQXAC9IVRw" // Sostituisci con l'ID del tuo video 
-                title="Video in Lingua dei Segni Italiana (LIS)"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      {
+        showVideo && (
+          <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-2xl">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                Video in Lingua dei Segni Italiana (LIS)
+              </h3>
+              <div className="aspect-video bg-black rounded-lg mb-4">
+                <iframe
+                  className="w-full h-full rounded-lg"
+                  src="https://www.youtube.com/embed/jNQXAC9IVRw" // Sostituisci con l'ID del tuo video 
+                  title="Video in Lingua dei Segni Italiana (LIS)"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                >
+                </iframe>
+              </div>
+              <button
+                onClick={() => setShowVideo(false)}
+                className="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
               >
-              </iframe>
+                Chiudi
+              </button>
             </div>
-            <button
-              onClick={() => setShowVideo(false)}
-              className="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-            >
-              Chiudi
-            </button>
           </div>
-        </div>
-      )}
-    </article>
+        )
+      }
+    </article >
   );
 }
