@@ -162,6 +162,15 @@ export default function ProgettoMostraModelli() {
           </div>
         </div>
       </div>
+      {/* PULSANTE TORNA INDIETRO */}
+      <div className="max-w-4xl mx-auto mb-8 text-center">
+        <a
+          href="/mostra-modelli"
+          className="inline-flex items-center gap-2 bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
+        >
+          ← Torna alla Mostra Modelli
+        </a>
+      </div>
       {/* INFORMAZIONI MOSTRA */}
       <div className="max-w-4xl mx-auto space-y-6">
         <section className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-6 rounded-r-xl">
