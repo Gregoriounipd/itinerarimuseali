@@ -1,32 +1,22 @@
 import Image from "next/image";
 import { Volume2, PlayCircle, BookOpen } from "lucide-react";
-
+import { useState } from "react";
 import { usePageTranslation } from "@/hooks/usePageTranslation";
 import { t } from "i18next";
-import { useState, useEffect } from "react";
-
 // Componente per formattare il testo con a capo
 const FormattedText = ({ text, className = "" }) => {
-  const [formattedHtml, setFormattedHtml] = useState("");
+  if (!text) return null;
 
-  useEffect(() => {
-    if (!text) return;
-
-    // Sostituisci ||| con <br/> per andare a capo
-    const formatted = text
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **grassetto**
-      .replace(/\*(.*?)\*/g, '<em>$1</em>') // *corsivo*
-      .replace(/\|\|\|/g, '<br/>'); // ||| = a capo
-
-    setFormattedHtml(formatted);
-  }, [text]);
-
-  if (!formattedHtml) return null;
+  // Sostituisci ||| con <br/> per andare a capo
+  const formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **grassetto**
+    .replace(/\*(.*?)\*/g, '<em>$1</em>') // *corsivo*
+    .replace(/\|\|\|/g, '<br/>'); // ||| = a capo
 
   return (
     <div
       className={className}
-      dangerouslySetInnerHTML={{ __html: formattedHtml }}
+      dangerouslySetInnerHTML={{ __html: formattedText }}
     />
   );
 };
@@ -172,7 +162,7 @@ export default function ProgettoMostraModelli() {
           </div>
         </div>
       </div>
-
+     
       {/* INFORMAZIONI MOSTRA */}
       <div className="max-w-4xl mx-auto space-y-6">
         <section className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-6 rounded-r-xl">
@@ -253,7 +243,7 @@ export default function ProgettoMostraModelli() {
               </h3>
               <audio controls className="w-full mb-4">
                 <source src="https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/public/audio_mp4/0.0%20introduzione.mp3" type="audio/mpeg" />
-                Il tuo browser non supporta l'elemento audio.
+                Il tuo browser non supporta questo formato audio.
               </audio>
               <button
                 onClick={() => setShowAudio(false)}
