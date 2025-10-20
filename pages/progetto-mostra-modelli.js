@@ -3,6 +3,8 @@ import { Volume2, PlayCircle, BookOpen } from "lucide-react";
 import { useState } from "react";
 import { usePageTranslation } from "@/hooks/usePageTranslation";
 import { t } from "i18next";
+import Link from "next/link";
+import { ChevronLeft, ArrowLeft } from "lucide-react";
 // Componente per formattare il testo con a capo
 const FormattedText = ({ text, className = "" }) => {
   if (!text) return null;
@@ -130,6 +132,15 @@ export default function ProgettoMostraModelli() {
               <div className="text-gray-700 dark:text-gray-300 leading-relaxed">
                 <FormattedText text={texts.paragraph4} />
               </div>
+            </div>          {/* PULSANTE PER TORNARE ALL'ITINERARIO - SOTTO IL TESTO CENTRALE */}
+            <div className="flex justify-center mt-8 w-full">
+              <a
+                href="https://www.itinerariaccessibili.com/itinerario/ed9b295c-13d1-4ab5-a620-2294c8d3fac9"
+                className="inline-flex items-center gap-2 bg-gray-600 text-white hover:bg-gray-700 px-6 py-3 rounded-lg font-medium transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Torna all'itinerario
+              </a>
             </div>
           </div>
 
@@ -162,7 +173,8 @@ export default function ProgettoMostraModelli() {
           </div>
         </div>
       </div>
-     
+
+
       {/* INFORMAZIONI MOSTRA */}
       <div className="max-w-4xl mx-auto space-y-6">
         <section className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-6 rounded-r-xl">
