@@ -6,23 +6,6 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
-// Componente per formattare il testo con Markdown
-const FormattedText = ({ text, className = "" }) => {
-  if (!text) return null;
-  
-  // Sostituisci ||| con <br/> per andare a capo
-  const formattedText = text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // **grassetto**
-    .replace(/\*(.*?)\*/g, '<em>$1</em>') // *corsivo*
-    .replace(/\|\|\|/g, '<br/>'); // ||| = a capo
-
-  return (
-    <div 
-      className={className}
-      dangerouslySetInnerHTML={{ __html: formattedText }}
-    />
-  );
-};
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -215,6 +198,55 @@ function AudioModal({ url, onClose, repertoNome }) {
           Chiudi audioguida
         </button>
       </div>
+    </div>
+  );
+}
+// Componente per formattare il testo con markdown
+function FormattedText({ text, className = "" }) {
+  if (!text) return null;
+
+  // Se il testo contiene un link PDF, mostra solo il messaggio
+  if (text.includes('.pdf')) {
+    return (
+      <div className={`text-blue-600 dark:text-blue-400 font-medium ${className}`}>
+        📄 {text}
+      </div>
+    );
+  }
+
+  // Formattazione semplice per grassetto e a capo
+  const formatText = (text) => {
+    if (!text) return '';
+
+    // Sostituisce **testo** con <strong>
+    const withBold = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Gestione ritorni a capo - usa i veri newline
+    const paragraphs = withBold.split(/\n\s*\n/); // Divide per paragrafi (due newline)
+
+    return paragraphs.map((paragraph, index) => {
+      if (paragraph.trim() === '') {
+        return <br key={index} />;
+      }
+
+      // Divide le righe singole all'interno del paragrafo
+      const lines = paragraph.split('\n');
+      return (
+        <p key={index} className="mb-4 leading-relaxed">
+          {lines.map((line, lineIndex) => (
+            <span key={lineIndex}>
+              {lineIndex > 0 && <br />}
+              <span dangerouslySetInnerHTML={{ __html: line }} />
+            </span>
+          ))}
+        </p>
+      );
+    });
+  };
+
+  return (
+    <div className={className}>
+      {formatText(text)}
     </div>
   );
 }
@@ -546,30 +578,29 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                       </div>
                       {/* === TESTO SELEZIONATO === */}
                       <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 mt-6">
-                        {!currentLang
-                          ? (i18n.language === 'en'
-                            ? "Select a language to view the text"
-                            : i18n.language === 'es'
-                              ? "Selecciona un idioma para ver el texto"
-                              : "Seleziona una lingua per visualizzare il testo"
-                          )
-                          : (approfondimento?.[currentLang]?.includes('.pdf')
-                            ? (i18n.language === 'en'
-                              ? "📄 PDF available - Click the language button to open it"
-                              : i18n.language === 'es'
-                                ? "📄 PDF disponible - Haz clic en el botón del idioma para abrirlo"
-                                : "📄 PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
-                            )
-                            : approfondimento?.[currentLang]
-                              ? <FormattedText text={approfondimento[currentLang]} />
-                              : (i18n.language === 'en'
-                                ? "⚠️ Text not available in this language"
-                                : i18n.language === 'es'
-                                  ? "⚠️ Texto no disponible en este idioma"
-                                  : "⚠️ Testo non disponibile in questa lingua"
-                              )
-                          )
-                        }
+                        {!currentLang ? (
+                          i18n.language === 'en' ? "Select a language to view the text" :
+                            i18n.language === 'es' ? "Selecciona un idioma para ver el texto" :
+                              "Seleziona una lingua per visualizzare il testo"
+                        ) : approfondimento?.[currentLang]?.includes('.pdf') ? (
+                          <div className="text-blue-600 dark:text-blue-400 font-medium">
+                            📄 {
+                              i18n.language === 'en' ? "PDF available - Click the language button to open it" :
+                                i18n.language === 'es' ? "PDF disponible - Haz clic en el botón del idioma para abrirlo" :
+                                  "PDF disponibile - Clicca sul pulsante della lingua per aprirlo"
+                            }
+                          </div>
+                        ) : approfondimento?.[currentLang] ? (
+                          <FormattedText text={approfondimento[currentLang]} />
+                        ) : (
+                          <div className="text-yellow-600 dark:text-yellow-400">
+                            ⚠️ {
+                              i18n.language === 'en' ? "Text not available in this language" :
+                                i18n.language === 'es' ? "Texto no disponible en este idioma" :
+                                  "Testo non disponibile in questa lingua"
+                            }
+                          </div>
+                        )}
                       </div>
                     </section>
                   </div>
