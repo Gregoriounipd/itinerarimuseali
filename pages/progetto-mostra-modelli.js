@@ -139,7 +139,7 @@ export default function ProgettoMostraModelli() {
                 className="inline-flex items-center gap-2 bg-gray-600 text-white hover:bg-gray-700 px-6 py-3 rounded-lg font-medium transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Torna indietro
+                Torna alla home 
               </a>
             </div>
           </div>

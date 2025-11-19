@@ -324,7 +324,60 @@ export default function Itinerario() {
                       </Link>
                     </motion.div>
                   ))}
+                {/* === PULSANTE GIOCO GENIALLY - INIZIO === */}
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                >
+                  <a
+                    href="https://view.genially.com/68fb6ca19ad016406070b976/interactive-content-completa-i-modelli-della-mostra"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`group relative block ${theme.cardBg} rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-600`}
+                    aria-label="Apri gioco interattivo: Allestisci i modelli della mostra"
+                  >
+                    {/* IMMAGINE CON OVERLAY - SENZA OVERLAY SCURO */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img
+                        src="https://ylibjgveunetwyavmcyb.supabase.co/storage/v1/object/public/immagini%20utili/drag%20and%20drop.jpg"
+                        alt="Gioco interattivo: Allestisci i modelli della mostra - Drag and Drop"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        loading="lazy"
+                      />
+                      <div className="absolute bottom-4 left-4 right-4 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                        <span className="inline-block px-3 py-1 bg-white/90 text-gray-900 text-sm rounded-full backdrop-blur-sm font-medium">
+                          Clicca per giocare →
+                        </span>
+                      </div>
+                      <div className="absolute top-4 left-4 bg-green-500 text-white text-xs px-3 py-1 rounded-full font-medium shadow-lg z-10">
+                        NUOVO
+                      </div>
+                    </div>
 
+                    {/* Contenuto carta */}
+                    <div className="p-6">
+                      <h3 className={`font-bold text-xl mb-3 ${theme.textPrimary} group-hover:text-green-600 transition-colors duration-300`}>
+                        Allestisci i Modelli
+                      </h3>
+                      <p className={`text-sm leading-relaxed ${theme.textSecondary} line-clamp-3`}>
+                        Gioco interattivo educativo: allestisci e ricostruisci i modelli della mostra in modo divertente
+                      </p>
+
+                      {/* Freccia indicatrice */}
+                      <div className="mt-4 flex justify-end">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <svg className="w-4 h-4 text-white transform rotate-[-90deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </motion.div>
+                {/* === PULSANTE GIOCO GENIALLY - FINE === */}
               </AnimatePresence>
             </div>
 

@@ -223,12 +223,12 @@ function FormattedText({ text, className = "" }) {
 
     // Gestione ritorni a capo - usa i veri newline
     const paragraphs = withBold.split(/\n\s*\n/); // Divide per paragrafi (due newline)
-
+    
     return paragraphs.map((paragraph, index) => {
       if (paragraph.trim() === '') {
         return <br key={index} />;
       }
-
+      
       // Divide le righe singole all'interno del paragrafo
       const lines = paragraph.split('\n');
       return (
@@ -398,7 +398,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
                 aria-label="Torna all'itinerario dei reperti"
               >
                 <ChevronLeft className="w-5 h-5 flex-shrink-0" />
-                <span className="font-medium text-sm sm:text-base">Torna ai reperti</span>
+                <span className="font-medium text-sm sm:text-base">Torna alla home</span>
               </Link>
 
               <div className="flex items-center gap-3">
