@@ -385,7 +385,7 @@ export default function RepertoPage({ approfondimento, data, dataReperti, repert
           href="#main-content"
           className="sr-only focus:not-sr-only absolute top-4 left-4 z-50 px-4 py-2 bg-blue-700 text-white rounded focus:ring-4 focus:ring-blue-300"
         >
-          Salta al contenuto principale
+          vai al contenuto principale
         </a>
 
         {/* Header */}
