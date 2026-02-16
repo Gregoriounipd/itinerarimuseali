@@ -22,7 +22,7 @@ export default function Info() {
         </div>
 
         <p className="text-lg text-gray-700 leading-relaxed dark:text-gray-100">
-          Questo sito raccoglie e racconta una serie di <strong>itinerari culturali </strong>
+          questa pagina web raccoglie e racconta una serie di <strong>itinerari culturali </strong>
           proposti dall&apos;Università di Padova. Ogni itinerario è pensato per guidarti alla scoperta
           di opere d&apos;arte, reperti e luoghi storici, attraverso percorsi tematici.
         </p>
