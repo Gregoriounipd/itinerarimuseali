@@ -325,7 +325,7 @@ export default function Itinerario() {
                     </motion.div>
                   ))}
                 {/* === PULSANTE GIOCO GENIALLY - INIZIO === */}
-                <motion.div
+                {isMostraModelli && <motion.div
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -377,6 +377,7 @@ export default function Itinerario() {
                     </div>
                   </a>
                 </motion.div>
+                }
                 {/* === PULSANTE GIOCO GENIALLY - FINE === */}
               </AnimatePresence>
             </div>
