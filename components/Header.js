@@ -40,7 +40,7 @@ export default function Header({ itinerarioId }) {
             <div className="relative overflow-hidden rounded-lg transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/images/logo-unipd.png"
-                alt="Questo sito è accessibile premi Invio per accedere al guida."
+                alt="Logo cliccabile dell'Università di Padova"
                 width={160}
                 height={160}
                 className={`cursor-pointer transition-all duration-300 ${isModelli ? 'drop-shadow-lg' : 'dark:invert group-hover:brightness-110'
@@ -55,6 +55,7 @@ export default function Header({ itinerarioId }) {
             <div className="relative overflow-hidden rounded-lg transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/images/logo_museabile.png"
+                alt="Logo cliccabile del progetto Museabile Cultura per Tutti"
                 width={160}
                 height={160}
                 className={`cursor-pointer transition-all duration-300 ${isModelli ? 'drop-shadow-lg' : 'dark:invert group-hover:brightness-110'
